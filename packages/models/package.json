@@ -1,0 +1,16 @@
+{
+  "name": "@packages/models",
+  "scripts": {},
+  "exports": {
+    "./*": "./src/*/index.ts"
+  },
+  "license": "MIT",
+  "packageManager": "pnpm@10.15.0",
+  "dependencies": {
+    "@packages/tsconfig": "workspace:^",
+    "zod": "^4.1.5"
+  },
+  "devDependencies": {
+    "vitest": "^3.2.4"
+  }
+}
