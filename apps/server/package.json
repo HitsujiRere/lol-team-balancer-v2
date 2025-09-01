@@ -9,6 +9,7 @@
     "cf-typegen": "wrangler types --env-interface CloudflareBindings"
   },
   "dependencies": {
+    "@packages/tsconfig": "workspace:^",
     "hono": "^4.9.5"
   },
   "devDependencies": {

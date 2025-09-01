@@ -14,6 +14,9 @@ importers:
 
   apps/server:
     dependencies:
+      '@packages/tsconfig':
+        specifier: workspace:^
+        version: link:../../packages/tsconfig
       hono:
         specifier: ^4.9.5
         version: 4.9.5
@@ -27,6 +30,8 @@ importers:
       wrangler:
         specifier: ^4.17.0
         version: 4.33.1
+
+  packages/tsconfig: {}
 
 packages:
 

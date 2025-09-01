@@ -1,0 +1,9 @@
+{
+  "name": "@packages/tsconfig",
+  "scripts": {},
+  "exports": {
+    "./*": "./*"
+  },
+  "license": "MIT",
+  "packageManager": "pnpm@10.15.0"
+}
