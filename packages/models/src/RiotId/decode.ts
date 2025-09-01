@@ -9,7 +9,7 @@ const riotIdSchema = z.object({
 const riotIdListSchema = z.array(riotIdSchema);
 
 /**
- * JSON文字列からRiotIdにデコードします。
+ * JSON文字列からRiotIdにデコードする。
  * @param encoded - RiotIdのJSON文字列。例: `{"gameName": "Summoner", "tagLine": "JP1"}`
  * @returns デコードに成功したときときRiotId、失敗したときundefinedを返す。
  */
@@ -27,7 +27,7 @@ export const decodeRiotId = (encoded: string): RiotId | undefined => {
 };
 
 /**
- * JSON文字列からRiotId配列にデコードします。
+ * JSON文字列からRiotId配列にデコードする。
  * @param encoded - RiotId配列のJSON文字列。例: `[{"gameName": "Summoner", "tagLine": "JP1"}]`
  * @returns デコードに成功したときときRiotId配列、失敗したときundefinedを返す。
  */

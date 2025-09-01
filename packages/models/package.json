@@ -1,6 +1,8 @@
 {
   "name": "@packages/models",
-  "scripts": {},
+  "scripts": {
+    "test": "vitest run"
+  },
   "exports": {
     "./*": "./src/*/index.ts"
   },
