@@ -1,6 +1,6 @@
 # LoL Team Balancer v2
 
-LoLのカスタムゲームにおけるチーム分けを行うアプリケーションです．
+LoLのカスタムゲームにおけるチーム分けを行うアプリケーションです。
 
 [lol-team-balancer v1](https://github.com/HitsujiRere/lol-team-balancer)
 
@@ -20,12 +20,18 @@ pnpm -F server build
 - React
 - Cloudflare Pages
 
-### [@apps/server](apps/server)
+### [@apps/server](apps/server/)
 
 - APIサーバ
 - Hono
 - Cloudflare Workers
 
-### @packages/models
+### [@packages/models](packages/models/)
 
-- clientとserverで共有したいドメインモデル
+- clientとserverで共有するドメインモデル
+
+### 全体
+
+- pnpm workspace
+- biome
+- vitest
