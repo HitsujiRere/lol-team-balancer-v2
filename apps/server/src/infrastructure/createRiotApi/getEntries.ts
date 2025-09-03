@@ -29,34 +29,35 @@ export const getEntries = async (
   riotApiKey: string,
   puuId: string,
 ): Promise<Entry[] | undefined> => {
-  try {
-    const data = await fetch(
-      `https://jp1.api.riotgames.com/lol/league/v4/entries/by-puuid/${puuId}`,
-      { headers: { "X-Riot-Token": riotApiKey } },
-    );
-    if (!data.ok) {
+  const data = await fetch(
+    `https://jp1.api.riotgames.com/lol/league/v4/entries/by-puuid/${puuId}`,
+    { headers: { "X-Riot-Token": riotApiKey } },
+  );
+  if (!data.ok) {
+    // No results found for player
+    if (data.status === 404) {
       return undefined;
     }
 
-    const body = await schema.safeParseAsync(await data.json());
-    if (!body.success) {
-      return undefined;
-    }
-
-    return body.data.map((data) => ({
-      leagueId: data.leagueId,
-      queueType: data.queueType,
-      tier: data.tier,
-      rank: data.rank,
-      leaguePoints: data.leaguePoints,
-      wins: data.wins,
-      losses: data.losses,
-      veteran: data.veteran,
-      inactive: data.inactive,
-      freshBlood: data.freshBlood,
-      hotStreak: data.hotStreak,
-    }));
-  } catch {
-    return undefined;
+    throw new Error(await data.text());
   }
+
+  const body = await schema.safeParseAsync(await data.json());
+  if (!body.success) {
+    throw new Error(body.error.message);
+  }
+
+  return body.data.map((data) => ({
+    leagueId: data.leagueId,
+    queueType: data.queueType,
+    tier: data.tier,
+    rank: data.rank,
+    leaguePoints: data.leaguePoints,
+    wins: data.wins,
+    losses: data.losses,
+    veteran: data.veteran,
+    inactive: data.inactive,
+    freshBlood: data.freshBlood,
+    hotStreak: data.hotStreak,
+  }));
 };

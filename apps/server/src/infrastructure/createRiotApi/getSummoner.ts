@@ -24,12 +24,17 @@ export const getSummoner = async (
       { headers: { "X-Riot-Token": riotApiKey } },
     );
     if (!data.ok) {
-      return undefined;
+      // No results found for player
+      if (data.status === 404) {
+        return undefined;
+      }
+
+      throw new Error(await data.text());
     }
 
     const body = await schema.safeParseAsync(await data.json());
     if (!body.success) {
-      return undefined;
+      throw new Error(body.error.message);
     }
 
     return {

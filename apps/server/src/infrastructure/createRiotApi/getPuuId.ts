@@ -17,22 +17,24 @@ export const getPuuId = async (
   riotApiKey: string,
   riotId: RiotId,
 ): Promise<string | undefined> => {
-  try {
-    const data = await fetch(
-      `https://asia.api.riotgames.com/riot/account/v1/accounts/by-riot-id/${riotId.gameName}/${riotId.tagLine}`,
-      { headers: { "X-Riot-Token": riotApiKey } },
-    );
-    if (!data.ok) {
+  // try {
+  const data = await fetch(
+    `https://asia.api.riotgames.com/riot/account/v1/accounts/by-riot-id/${riotId.gameName}/${riotId.tagLine}`,
+    { headers: { "X-Riot-Token": riotApiKey } },
+  );
+  if (!data.ok) {
+    // No results found for player
+    if (data.status === 404) {
       return undefined;
     }
 
-    const body = await schema.safeParseAsync(await data.json());
-    if (!body.success) {
-      return undefined;
-    }
-
-    return body.data.puuid;
-  } catch {
-    return undefined;
+    throw new Error(await data.text());
   }
+
+  const body = await schema.safeParseAsync(await data.json());
+  if (!body.success) {
+    throw new Error(body.error.message);
+  }
+
+  return body.data.puuid;
 };
