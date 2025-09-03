@@ -6,7 +6,8 @@
     "build": "vite build",
     "preview": "$npm_execpath run build && vite preview",
     "deploy": "$npm_execpath run build && wrangler deploy",
-    "cf-typegen": "wrangler types --env-interface CloudflareBindings"
+    "cf-typegen": "wrangler types --env-interface CloudflareBindings",
+    "test": "vitest run"
   },
   "dependencies": {
     "@packages/models": "workspace:^",
@@ -18,6 +19,7 @@
     "@cloudflare/vite-plugin": "^1.2.3",
     "vite": "7.1.3",
     "vite-tsconfig-paths": "^5.1.4",
+    "vitest": "^3.2.4",
     "wrangler": "^4.17.0"
   }
 }
