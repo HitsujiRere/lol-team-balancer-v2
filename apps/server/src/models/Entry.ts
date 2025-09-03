@@ -1,6 +1,9 @@
 import type { RankNumber, Tier } from "@packages/models/Rank";
 import type { QueueType } from "./QueueType";
 
+/**
+ * リーグごとのエントリー情報。
+ */
 export type Entry = {
   leagueId: string;
   queueType: QueueType;

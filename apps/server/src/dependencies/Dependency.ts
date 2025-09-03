@@ -1,11 +1,14 @@
-export class Dependency<T> {
-  createInfrastructure: () => T;
+/**
+ * DIコンテナ。
+ */
+export class Dependency<Service> {
+  constructor(private serviceInitializer: () => Service) {}
 
-  constructor(createInfrastructure: () => T) {
-    this.createInfrastructure = createInfrastructure;
-  }
-
-  resolve(): T {
-    return this.createInfrastructure();
+  /**
+   * サービスを解決する。
+   * @returns サービス。
+   */
+  resolve(): Service {
+    return this.serviceInitializer();
   }
 }

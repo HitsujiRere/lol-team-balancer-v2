@@ -25,6 +25,7 @@ pnpm -F server build
 - APIサーバ
 - Hono
 - Cloudflare Workers
+- Dependency Injection
 
 ### [@packages/models](packages/models/)
 

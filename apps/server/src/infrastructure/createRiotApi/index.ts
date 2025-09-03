@@ -4,6 +4,10 @@ import { getEntries } from "./getEntries";
 import { getPuuId } from "./getPuuId";
 import { getSummoner } from "./getSummoner";
 
+/**
+ * RiotApiインフラを作成する。
+ * @returns
+ */
 export const createRiotApi = (): CreateRiotApi => {
   const riotApiKey = env.RIOT_API_KEY;
 

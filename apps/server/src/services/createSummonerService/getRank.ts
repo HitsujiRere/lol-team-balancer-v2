@@ -2,6 +2,12 @@ import { joinRank, type Rank } from "@packages/models/Rank";
 import type { RiotId } from "@packages/models/RiotId";
 import type { CreateRiotApi } from "@/infrastructure/types/CreateRiotApi";
 
+/**
+ * ランクを取得するサービス。
+ * @param riotApi RiotApiインフラ。
+ * @param riotId 対象のRiotId。
+ * @returns ランクが取得できたときそのランク，そうでないときundefinedを返す。
+ */
 export const getRank = async (
   riotApi: CreateRiotApi,
   riotId: RiotId,
