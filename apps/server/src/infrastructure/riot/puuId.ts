@@ -1,0 +1,35 @@
+import { env } from "cloudflare:workers";
+import type { RiotId } from "@packages/models/RiotId";
+import z from "zod";
+
+const schema = z.object({
+  puuid: z.string(),
+  gameName: z.string(),
+  tagLine: z.string(),
+});
+
+/**
+ * RiotIdから対応するPuuIdを取得する。
+ * @param riotId 取得するRiotId。
+ * @returns APIリクエストが成功したときPuuId、失敗したときundefinedを返す。
+ */
+export const getPuuId = async (riotId: RiotId): Promise<string | undefined> => {
+  try {
+    const data = await fetch(
+      `https://asia.api.riotgames.com/riot/account/v1/accounts/by-riot-id/${riotId.gameName}/${riotId.tagLine}`,
+      { headers: { "X-Riot-Token": env.RIOT_API_KEY } },
+    );
+    if (!data.ok) {
+      return undefined;
+    }
+
+    const body = await schema.safeParseAsync(await data.json());
+    if (!body.success) {
+      return undefined;
+    }
+
+    return body.data.puuid;
+  } catch {
+    return undefined;
+  }
+};
