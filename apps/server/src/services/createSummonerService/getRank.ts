@@ -19,7 +19,7 @@ export const getRank = async (
 
   const entries = await riotApi.getEntries(puuId);
   if (entries === undefined) {
-    return undefined;
+    return "UNRANKED";
   }
 
   const soloRankedEntry = entries.find(

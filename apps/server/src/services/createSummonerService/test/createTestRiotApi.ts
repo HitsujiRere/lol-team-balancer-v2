@@ -6,6 +6,7 @@ import type { Summoner } from "@/models/Summoner";
 type Data = Record<
   string,
   {
+    isExist: boolean;
     summoner?: Summoner;
     entries?: Entry[];
   }
@@ -14,7 +15,8 @@ type Data = Record<
 export const createTestRiotApi = (data: Data): CreateRiotApi => {
   return {
     getPuuId: async (riotId) => {
-      return formatRiotId(riotId);
+      const puuId = formatRiotId(riotId);
+      return data[puuId]?.isExist ? puuId : undefined;
     },
     getSummoner: async (puuId) => {
       return data[puuId]?.summoner;

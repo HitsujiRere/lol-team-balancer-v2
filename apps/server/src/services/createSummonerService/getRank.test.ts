@@ -6,6 +6,7 @@ import { randomEntry } from "./test/randomEntry";
 describe("getRank", () => {
   const riotApi = createTestRiotApi({
     "Solo Summoner #JP1": {
+      isExist: true,
       entries: [
         randomEntry({
           queueType: "RANKED_SOLO_5x5",
@@ -15,6 +16,7 @@ describe("getRank", () => {
       ],
     },
     "Flex Summoner #JP1": {
+      isExist: true,
       entries: [
         randomEntry({
           queueType: "RANKED_FLEX_SR",
@@ -24,6 +26,7 @@ describe("getRank", () => {
       ],
     },
     "SoloFlex Summoner #JP1": {
+      isExist: true,
       entries: [
         randomEntry({
           queueType: "RANKED_SOLO_5x5",
@@ -38,9 +41,12 @@ describe("getRank", () => {
       ],
     },
     "Unrank Summoner #JP1": {
+      isExist: true,
       entries: [],
     },
-    "Unentry Summoner #JP1": {},
+    "None Summoner #JP1": {
+      isExist: false,
+    },
   });
 
   it("SOLOのランクを持つとき正しいランクを返す", async () => {
@@ -65,11 +71,7 @@ describe("getRank", () => {
 
   it("サモナーが存在しないときundefinedを返す", async () => {
     expect(
-      await getRank(riotApi, { gameName: "Unentry Summoner", tagLine: "JP1" }),
-    ).toBe(undefined);
-
-    expect(
-      await getRank(riotApi, { gameName: "Error Summoner", tagLine: "JP1" }),
+      await getRank(riotApi, { gameName: "None Summoner", tagLine: "JP1" }),
     ).toBe(undefined);
   });
 });
