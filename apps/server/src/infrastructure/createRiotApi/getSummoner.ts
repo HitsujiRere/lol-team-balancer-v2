@@ -1,4 +1,3 @@
-import { env } from "cloudflare:workers";
 import z from "zod";
 import type { Summoner } from "@/models/Summoner";
 
@@ -11,16 +10,18 @@ const schema = z.object({
 
 /**
  * RiotIdから対応するSummonerを取得する。
+ * @param riotApiKey Riot APIキー。
  * @param riotId 取得するRiotId。
  * @returns APIリクエストが成功したときSummoner、失敗したときundefinedを返す。
  */
 export const getSummoner = async (
+  riotApiKey: string,
   puuId: string,
 ): Promise<Summoner | undefined> => {
   try {
     const data = await fetch(
       `https://jp1.api.riotgames.com/lol/summoner/v4/summoners/by-puuid/${puuId}`,
-      { headers: { "X-Riot-Token": env.RIOT_API_KEY } },
+      { headers: { "X-Riot-Token": riotApiKey } },
     );
     if (!data.ok) {
       return undefined;

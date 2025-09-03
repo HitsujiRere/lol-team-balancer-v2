@@ -1,12 +1,15 @@
+import { env } from "cloudflare:workers";
 import type { CreateRiotApi } from "../types/CreateRiotApi";
-import { getEntries } from "./entries";
-import { getPuuId } from "./puuId";
-import { getSummoner } from "./summoner";
+import { getEntries } from "./getEntries";
+import { getPuuId } from "./getPuuId";
+import { getSummoner } from "./getSummoner";
 
 export const createRiotApi = (): CreateRiotApi => {
+  const riotApiKey = env.RIOT_API_KEY;
+
   return {
-    getPuuId: getPuuId,
-    getSummoner: getSummoner,
-    getEntries: getEntries,
+    getPuuId: (riotId) => getPuuId(riotApiKey, riotId),
+    getSummoner: (puuId) => getSummoner(riotApiKey, puuId),
+    getEntries: (puuId) => getEntries(riotApiKey, puuId),
   };
 };

@@ -1,4 +1,3 @@
-import { env } from "cloudflare:workers";
 import { RANK_NUMBERS, TIERS } from "@packages/models/Rank";
 import z from "zod";
 import type { Entry } from "@/models/Entry";
@@ -22,16 +21,18 @@ const schema = z.array(
 
 /**
  * RiotIdから対応するLeagueのEntry配列を取得する。
- * @param riotId 取得するサモナーのPuuId。
+ * @param riotApiKey Riot APIキー。
+ * @param puuId 取得するサモナーのPuuId。
  * @returns APIリクエストが成功したときEntry配列、失敗したときundefinedを返す。
  */
 export const getEntries = async (
-  puuid: string,
+  riotApiKey: string,
+  puuId: string,
 ): Promise<Entry[] | undefined> => {
   try {
     const data = await fetch(
-      `https://jp1.api.riotgames.com/lol/league/v4/entries/by-puuid/${puuid}`,
-      { headers: { "X-Riot-Token": env.RIOT_API_KEY } },
+      `https://jp1.api.riotgames.com/lol/league/v4/entries/by-puuid/${puuId}`,
+      { headers: { "X-Riot-Token": riotApiKey } },
     );
     if (!data.ok) {
       return undefined;
