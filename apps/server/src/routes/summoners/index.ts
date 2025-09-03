@@ -22,7 +22,10 @@ export const summonersRouter = new Hono().get("/rank", async (c) => {
 
   return c.json({
     summoners: await Promise.all(
-      riotIds.map((riotId) => summoerService.getRank(riotId)),
+      riotIds.map(async (riotId) => ({
+        riotId,
+        rank: await summoerService.getRank(riotId),
+      })),
     ),
   });
 });
