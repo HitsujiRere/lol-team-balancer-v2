@@ -6,7 +6,7 @@ import { randomEntry } from "./test/randomEntry";
 describe("getRank", () => {
   const riotApi = createTestRiotApi({
     "Solo Summoner #JP1": {
-      isExist: true,
+      exists: true,
       entries: [
         randomEntry({
           queueType: "RANKED_SOLO_5x5",
@@ -16,7 +16,7 @@ describe("getRank", () => {
       ],
     },
     "Flex Summoner #JP1": {
-      isExist: true,
+      exists: true,
       entries: [
         randomEntry({
           queueType: "RANKED_FLEX_SR",
@@ -26,7 +26,7 @@ describe("getRank", () => {
       ],
     },
     "SoloFlex Summoner #JP1": {
-      isExist: true,
+      exists: true,
       entries: [
         randomEntry({
           queueType: "RANKED_SOLO_5x5",
@@ -41,11 +41,11 @@ describe("getRank", () => {
       ],
     },
     "Unrank Summoner #JP1": {
-      isExist: true,
+      exists: true,
       entries: [],
     },
     "None Summoner #JP1": {
-      isExist: false,
+      exists: false,
     },
   });
 
