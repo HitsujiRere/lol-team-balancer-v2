@@ -1,8 +1,8 @@
 import { env } from "cloudflare:workers";
 import { RANK_NUMBERS, TIERS } from "@packages/models/Rank";
 import z from "zod";
-import type { Entry } from "@/types/Entry";
-import { QUEUE_TYPES } from "@/types/QueueType";
+import type { Entry } from "@/models/Entry";
+import { QUEUE_TYPES } from "@/models/QueueType";
 
 const schema = z.array(
   z.object({

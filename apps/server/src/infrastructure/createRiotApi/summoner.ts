@@ -1,6 +1,6 @@
 import { env } from "cloudflare:workers";
 import z from "zod";
-import type { Summoner } from "@/types/Summoner";
+import type { Summoner } from "@/models/Summoner";
 
 const schema = z.object({
   puuid: z.string(),

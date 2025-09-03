@@ -1,7 +1,7 @@
 import { decodeRiotIdList } from "@packages/models/RiotId";
 import { Hono } from "hono";
 import { HTTPException } from "hono/http-exception";
-import { getSummonerRanks } from "@/application/summoners";
+import { summonerServiceDependency } from "@/dependencies/summonerServiceDependency";
 
 export const summonersRouter = new Hono().get("/rank", async (c) => {
   const riotIdsQuery = c.req.query("riot-id-list");
@@ -18,5 +18,11 @@ export const summonersRouter = new Hono().get("/rank", async (c) => {
     });
   }
 
-  return c.json([...(await getSummonerRanks(riotIds))]);
+  const summoerService = summonerServiceDependency.resolve();
+
+  return c.json({
+    summoners: await Promise.all(
+      riotIds.map((riotId) => summoerService.getRank(riotId)),
+    ),
+  });
 });
