@@ -3,7 +3,7 @@ import { Hono } from "hono";
 import { HTTPException } from "hono/http-exception";
 import { summonerServiceDependency } from "@/dependencies/summonerServiceDependency";
 
-export const summonersRouter = new Hono().get("/rank", async (c) => {
+export const summonersRouter = new Hono().get("/", async (c) => {
   const riotIdsQuery = c.req.query("riot-id-list");
   if (riotIdsQuery === undefined) {
     throw new HTTPException(400, {
@@ -20,16 +20,12 @@ export const summonersRouter = new Hono().get("/rank", async (c) => {
 
   const summoerService = summonerServiceDependency.resolve();
 
-  return c.json({
-    summoners: await Promise.all(
+  return c.json([
+    ...(await Promise.all(
       riotIds.map(async (riotId) => {
-        const rank = await summoerService.getRank(riotId);
-        return {
-          riotId,
-          exists: rank !== undefined,
-          rank,
-        };
+        const infomation = await summoerService.getInfomation(riotId);
+        return { riotId, ...infomation };
       }),
-    ),
-  });
+    )),
+  ]);
 });

@@ -1,6 +1,6 @@
 import type { RiotId } from "@packages/models/RiotId";
 import type { CreateRiotApi } from "@/infrastructure/types/CreateRiotApi";
-import { getRank } from "./getRank";
+import { getInfomation } from "./getInfomation";
 
 /**
  * サモナーに関するサービスを作成する。
@@ -8,7 +8,7 @@ import { getRank } from "./getRank";
  * @returns 各サービス。
  */
 export const createSummonerService = (riotApi: CreateRiotApi) => ({
-  getRank: async (riotId: RiotId) => getRank(riotApi, riotId),
+  getInfomation: async (riotId: RiotId) => getInfomation(riotApi, riotId),
 });
 
 /**

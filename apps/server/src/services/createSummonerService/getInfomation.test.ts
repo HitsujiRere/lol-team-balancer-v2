@@ -1,9 +1,9 @@
 import { describe, expect, it } from "vitest";
-import { getRank } from "./getRank";
+import { getInfomation } from "./getInfomation";
 import { createTestRiotApi } from "./test/createTestRiotApi";
 import { randomEntry } from "./test/randomEntry";
 
-describe("getRank", () => {
+describe("getInfomation", () => {
   const riotApi = createTestRiotApi({
     "Solo Summoner #JP1": {
       exists: true,
@@ -51,27 +51,42 @@ describe("getRank", () => {
 
   it("SOLOのランクを持つとき正しいランクを返す", async () => {
     expect(
-      await getRank(riotApi, { gameName: "Solo Summoner", tagLine: "JP1" }),
-    ).toBe("IRON_I");
+      await getInfomation(riotApi, {
+        gameName: "Solo Summoner",
+        tagLine: "JP1",
+      }),
+    ).toEqual({ rank: "IRON_I" });
 
     expect(
-      await getRank(riotApi, { gameName: "SoloFlex Summoner", tagLine: "JP1" }),
-    ).toBe("SILVER_III");
+      await getInfomation(riotApi, {
+        gameName: "SoloFlex Summoner",
+        tagLine: "JP1",
+      }),
+    ).toEqual({ rank: "SILVER_III" });
   });
 
   it("SOLOランクを持たないときUNRANKEDを返す", async () => {
     expect(
-      await getRank(riotApi, { gameName: "Flex Summoner", tagLine: "JP1" }),
-    ).toBe("UNRANKED");
+      await getInfomation(riotApi, {
+        gameName: "Flex Summoner",
+        tagLine: "JP1",
+      }),
+    ).toEqual({ rank: "UNRANKED" });
 
     expect(
-      await getRank(riotApi, { gameName: "Unrank Summoner", tagLine: "JP1" }),
-    ).toBe("UNRANKED");
+      await getInfomation(riotApi, {
+        gameName: "Unrank Summoner",
+        tagLine: "JP1",
+      }),
+    ).toEqual({ rank: "UNRANKED" });
   });
 
   it("サモナーが存在しないときundefinedを返す", async () => {
     expect(
-      await getRank(riotApi, { gameName: "None Summoner", tagLine: "JP1" }),
-    ).toBe(undefined);
+      await getInfomation(riotApi, {
+        gameName: "None Summoner",
+        tagLine: "JP1",
+      }),
+    ).toEqual({});
   });
 });
