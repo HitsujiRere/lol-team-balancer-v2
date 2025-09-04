@@ -12,7 +12,7 @@ import {
 export const TeamSummonerTable = () => {
   return (
     <div>
-      <h2 className="mb-2 inline-flex items-center gap-2 text-xl">
+      <h2 className="mb-2 flex items-center gap-2 text-xl">
         <SwordsIcon className="size-5" />
         チーム分け
       </h2>
