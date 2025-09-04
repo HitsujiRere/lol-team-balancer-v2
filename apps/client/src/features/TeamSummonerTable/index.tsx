@@ -18,7 +18,7 @@ export const TeamSummonerTable = () => {
       </h2>
 
       <div className="flex gap-4">
-        <div className="flex-1 overflow-x-auto rounded-lg border">
+        <div className="flex-1 overflow-x-auto rounded-md border">
           <Table>
             <TableHeader>
               <TableRow>

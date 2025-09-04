@@ -17,7 +17,7 @@ export const RoomSummonerTable = () => {
         ルームサモナー
       </h2>
 
-      <div className="overflow-x-auto rounded-lg border">
+      <div className="overflow-x-auto rounded-md border">
         <Table>
           <TableHeader>
             <TableRow>
