@@ -2,6 +2,7 @@ import { MessageSquareIcon, XIcon } from "lucide-react";
 import { type ChangeEvent, useCallback, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
+import { DebugMessageButton } from "./components/DebugMessageButton";
 
 export const RoomMessageTextarea = () => {
   const [message, setMessage] = useState("");
@@ -17,10 +18,13 @@ export const RoomMessageTextarea = () => {
 
   return (
     <div>
-      <h2 className="mb-2 inline-flex items-center gap-2 text-xl">
-        <MessageSquareIcon className="size-5" />
-        ルームチャット
-      </h2>
+      <div className="mb-2 flex items-end justify-between">
+        <h2 className="inline-flex items-center gap-2 text-xl">
+          <MessageSquareIcon className="size-5" />
+          ルームチャット
+        </h2>
+        <DebugMessageButton setMessage={setMessage} />
+      </div>
 
       <div className="relative">
         <Textarea
