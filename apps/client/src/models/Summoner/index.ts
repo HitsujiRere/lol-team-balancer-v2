@@ -4,6 +4,7 @@ import type { RiotId } from "@packages/models/RiotId";
 export type Summoner = {
   name: string;
   riotId?: RiotId;
+  iconId?: number;
   level: number;
   rank?: Rank;
   isMute: boolean;
