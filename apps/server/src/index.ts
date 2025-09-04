@@ -10,3 +10,5 @@ const app = new Hono()
   .route("/summoners", summonersRouter);
 
 export default app;
+
+export type AppType = typeof app;
