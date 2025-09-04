@@ -57,10 +57,10 @@ export const isPlatinum = (tier: Tier | Rank) => {
 export const isEmerald = (tier: Tier | Rank) => {
   return (
     tier === "EMERALD" ||
-    tier === "PLATINUM_I" ||
-    tier === "PLATINUM_II" ||
-    tier === "PLATINUM_III" ||
-    tier === "PLATINUM_IV"
+    tier === "EMERALD_I" ||
+    tier === "EMERALD_II" ||
+    tier === "EMERALD_III" ||
+    tier === "EMERALD_IV"
   );
 };
 
