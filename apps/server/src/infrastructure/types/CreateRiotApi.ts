@@ -1,6 +1,6 @@
 import type { RiotId } from "@packages/models/RiotId";
-import type { Entry } from "../../models/Entry";
-import type { Summoner } from "../../models/Summoner";
+import type { Entry } from "@/models/Entry";
+import type { Summoner } from "@/models/Summoner";
 
 /**
  * RiotApiを呼ぶインターフェイス。
