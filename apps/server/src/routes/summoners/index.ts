@@ -18,7 +18,7 @@ export const summonersRouter = new Hono().get("/", async (c) => {
     });
   }
 
-  const summoerService = summonerServiceDependency.resolve();
+  const summoerService = await summonerServiceDependency.resolve();
 
   return c.json([
     ...(await Promise.all(

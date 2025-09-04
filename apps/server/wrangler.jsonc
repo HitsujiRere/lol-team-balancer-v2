@@ -8,5 +8,11 @@
   },
   "observability": {
     "enabled": false
-  }
+  },
+  "kv_namespaces": [
+    {
+      "binding": "KV",
+      "id": "ae7be157f47b46f1b0c8dc302058d851"
+    }
+  ]
 }

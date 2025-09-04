@@ -7,8 +7,8 @@ import { getSummoner } from "./getSummoner";
 /**
  * RiotApiインフラを作成する。
  */
-export const createRiotApi = (): CreateRiotApi => {
-  const riotApiKey = env.RIOT_API_KEY;
+export const createRiotApi = async (): Promise<CreateRiotApi> => {
+  const riotApiKey = (await env.KV.get("RIOT_API_KEY")) ?? "";
 
   return {
     getPuuId: (riotId) => getPuuId(riotApiKey, riotId),

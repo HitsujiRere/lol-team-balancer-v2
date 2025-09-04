@@ -1,14 +1,16 @@
+type MaybePromise<T> = T | Promise<T>;
+
 /**
  * DIコンテナ。
  */
 export class Dependency<Service> {
-  constructor(private serviceInitializer: () => Service) {}
+  constructor(private serviceInitializer: () => MaybePromise<Service>) {}
 
   /**
    * サービスを解決する。
    * @returns サービス。
    */
-  resolve(): Service {
-    return this.serviceInitializer();
+  async resolve(): Promise<Service> {
+    return await this.serviceInitializer();
   }
 }
