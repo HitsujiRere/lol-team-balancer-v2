@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { ThemeSelect } from "@/components/themeSelect";
 import { Button } from "@/components/ui/button";
 
 function App() {
@@ -7,6 +8,8 @@ function App() {
   return (
     <>
       <h1>LoL Team Balancer v2</h1>
+      <ThemeSelect />
+
       <div className="card">
         <Button onClick={() => setCount((count) => count + 1)}>
           count is {count}
