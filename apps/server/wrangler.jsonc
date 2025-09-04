@@ -5,5 +5,8 @@
   "main": "./src/index.ts",
   "vars": {
     "RIOT_API_KEY": ""
+  },
+  "observability": {
+    "enabled": false
   }
 }
