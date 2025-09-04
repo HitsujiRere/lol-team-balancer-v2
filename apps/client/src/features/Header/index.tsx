@@ -1,4 +1,5 @@
-import { ThemeSelect } from "@/components/themeSelect";
+import { DebugToggle } from "./components/DebugToggle";
+import { ThemeSelect } from "./components/ThemeSelect";
 
 export const Header = () => {
   return (
@@ -7,7 +8,10 @@ export const Header = () => {
         <span className="font-bold text-2xl">LoLチームバランサー</span>
         <span className="text-xl">ver.2</span>
       </h1>
-      <ThemeSelect />
+      <div className="flex gap-4">
+        <ThemeSelect />
+        <DebugToggle />
+      </div>
     </header>
   );
 };
