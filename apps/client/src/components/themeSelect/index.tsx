@@ -1,6 +1,6 @@
 import { SunMoonIcon } from "lucide-react";
 import { useTheme } from "next-themes";
-import React from "react";
+import { memo } from "react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -9,7 +9,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-export const ThemeSelect = React.memo(() => {
+export const ThemeSelect = memo(() => {
   const { setTheme } = useTheme();
 
   return (
