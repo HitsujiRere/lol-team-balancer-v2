@@ -20,7 +20,7 @@ function App() {
       <Header />
 
       <main
-        className="grid-areas-(--layout1) xl:grid-areas-(--layout2) grid gap-8 px-4 xl:grid-cols-2"
+        className="grid-areas-(--layout1) xl:grid-areas-(--layout2) grid gap-8 px-4 pb-64 xl:grid-cols-2"
         style={layouts}
       >
         <div className="grid-area-[room-message-textarea]">

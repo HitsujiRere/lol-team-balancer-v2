@@ -1,15 +1,9 @@
 import { UsersIcon } from "lucide-react";
 import { useShallow } from "zustand/shallow";
-import { Checkbox } from "@/components/ui/checkbox";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+import { Table, TableBody, TableHeader } from "@/components/ui/table";
 import { useRoomStore } from "@/stores/useRoomStore";
+import { HeaderRow } from "./components/HeaderRow";
+import { SummonerRow } from "./components/SummonerRow";
 
 export const RoomSummonerTable = () => {
   const names = useRoomStore(useShallow((state) => state.names));
@@ -24,29 +18,11 @@ export const RoomSummonerTable = () => {
       <div className="overflow-x-auto rounded-md border">
         <Table>
           <TableHeader>
-            <TableRow>
-              <TableHead>
-                <Checkbox />
-              </TableHead>
-              <TableHead>サモナー</TableHead>
-              <TableHead>Lv</TableHead>
-              <TableHead>ランク</TableHead>
-              <TableHead>聞き専</TableHead>
-            </TableRow>
+            <HeaderRow />
           </TableHeader>
           <TableBody>
             {names.map((name) => (
-              <TableRow key={name}>
-                <TableCell>
-                  <Checkbox />
-                </TableCell>
-                <TableCell>{name}</TableCell>
-                <TableCell>345</TableCell>
-                <TableCell>GOLD I</TableCell>
-                <TableCell>
-                  <Checkbox />
-                </TableCell>
-              </TableRow>
+              <SummonerRow key={name} name={name} />
             ))}
           </TableBody>
         </Table>

@@ -1,6 +1,5 @@
 import { SunMoonIcon } from "lucide-react";
 import { useTheme } from "next-themes";
-import { memo } from "react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -9,7 +8,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-export const ThemeSelect = memo(() => {
+export const ThemeSelect = () => {
   const { setTheme } = useTheme();
 
   return (
@@ -32,4 +31,4 @@ export const ThemeSelect = memo(() => {
       </DropdownMenuContent>
     </DropdownMenu>
   );
-});
+};
