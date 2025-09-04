@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Button } from "@/components/ui/button";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -7,9 +8,9 @@ function App() {
     <>
       <h1>LoL Team Balancer v2</h1>
       <div className="card">
-        <button type="button" onClick={() => setCount((count) => count + 1)}>
+        <Button onClick={() => setCount((count) => count + 1)}>
           count is {count}
-        </button>
+        </Button>
       </div>
     </>
   );
