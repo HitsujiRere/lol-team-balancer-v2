@@ -1,6 +1,7 @@
 import { formatRiotId, type RiotId } from "@packages/models/RiotId";
 import { create } from "zustand";
 import { mutative } from "zustand-mutative";
+import { useSummonersStore } from "./useSummonersStore";
 
 type State = {
   names: string[];
@@ -13,6 +14,9 @@ export const useRoomStore = create<State>()(
     setRiotIdsNames: (riotIds) =>
       set((state) => {
         state.names = riotIds.map((riotId) => formatRiotId(riotId));
+        riotIds.map((riotId) =>
+          useSummonersStore.getState().createByRiotId(riotId),
+        );
       }),
   })),
 );
