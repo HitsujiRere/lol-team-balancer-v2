@@ -11,12 +11,12 @@
   },
   "dependencies": {
     "@packages/models": "workspace:^",
-    "@packages/tsconfig": "workspace:^",
     "hono": "^4.9.5",
     "zod": "^4.1.5"
   },
   "devDependencies": {
     "@cloudflare/vite-plugin": "^1.2.3",
+    "@packages/tsconfig": "workspace:^",
     "vite": "7.1.3",
     "vite-tsconfig-paths": "^5.1.4",
     "vitest": "^3.2.4",
