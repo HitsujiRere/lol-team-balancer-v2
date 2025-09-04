@@ -1,11 +1,13 @@
 {
   "name": "lol-team-balancer-v2",
   "scripts": {
+    "dev": "turbo dev",
     "format": "biome check --write ."
   },
   "license": "MIT",
   "packageManager": "pnpm@10.15.0",
   "devDependencies": {
-    "@biomejs/biome": "^2.2.2"
+    "@biomejs/biome": "^2.2.2",
+    "turbo": "^2.5.6"
   }
 }
