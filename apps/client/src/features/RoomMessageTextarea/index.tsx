@@ -1,18 +1,23 @@
 import { MessageSquareIcon, XIcon } from "lucide-react";
-import { type ChangeEvent, useCallback, useState } from "react";
+import { type ChangeEvent, useCallback, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
+import { useRoomStore } from "@/stores/useRoomStore";
 import { DebugMessageButton } from "./components/DebugMessageButton";
+import { findRiotIdsInMessage } from "./utils/findRiotIdsInMessage";
 
 export const RoomMessageTextarea = () => {
   const [message, setMessage] = useState("");
 
   const handleTextareaChange = useCallback(
-    (event: ChangeEvent<HTMLTextAreaElement>) => {
-      setMessage(event.target.value);
-    },
+    (event: ChangeEvent<HTMLTextAreaElement>) => setMessage(event.target.value),
     [],
   );
+
+  const setNames = useRoomStore((state) => state.setRiotIdsNames);
+  useEffect(() => {
+    setNames(findRiotIdsInMessage(message));
+  }, [message, setNames]);
 
   const clearMessage = useCallback(() => setMessage(""), []);
 
