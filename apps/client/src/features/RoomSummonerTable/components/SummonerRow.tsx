@@ -44,10 +44,12 @@ export const SummonerRow = ({ name }: { name: string }) => {
       <TableCell>
         <div className="flex items-center gap-2">
           <Avatar>
-            <AvatarImage
-              src={`https://ddragon.leagueoflegends.com/cdn/15.17.1/img/profileicon/${summoner.iconId}.png`}
-              alt="icon"
-            />
+            {summoner.iconId !== undefined && (
+              <AvatarImage
+                src={`https://ddragon.leagueoflegends.com/cdn/15.17.1/img/profileicon/${summoner.iconId}.png`}
+                alt="icon"
+              />
+            )}
             <AvatarFallback />
           </Avatar>
           {summoner.riotId === undefined ? (
