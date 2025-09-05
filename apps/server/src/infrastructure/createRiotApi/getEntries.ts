@@ -1,6 +1,7 @@
 import { RANK_NUMBERS, TIERS } from "@packages/models/Rank";
 import z from "zod";
 import type { Entry } from "@/models/Entry";
+import { randomEntry } from "@/models/Entry/random";
 import { QUEUE_TYPES } from "@/models/QueueType";
 
 const schema = z.array(
@@ -29,6 +30,10 @@ export const getEntries = async (
   riotApiKey: string,
   puuId: string,
 ): Promise<Entry[] | undefined> => {
+  if (puuId === "RANDOM") {
+    return [randomEntry({ queueType: "RANKED_SOLO_5x5" })];
+  }
+
   const data = await fetch(
     `https://jp1.api.riotgames.com/lol/league/v4/entries/by-puuid/${puuId}`,
     { headers: { "X-Riot-Token": riotApiKey } },

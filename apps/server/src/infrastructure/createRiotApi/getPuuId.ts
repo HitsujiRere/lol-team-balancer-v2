@@ -17,7 +17,10 @@ export const getPuuId = async (
   riotApiKey: string,
   riotId: RiotId,
 ): Promise<string | undefined> => {
-  // try {
+  if (riotId.tagLine.includes("🔧")) {
+    return "RANDOM";
+  }
+
   const data = await fetch(
     `https://asia.api.riotgames.com/riot/account/v1/accounts/by-riot-id/${riotId.gameName}/${riotId.tagLine}`,
     { headers: { "X-Riot-Token": riotApiKey } },

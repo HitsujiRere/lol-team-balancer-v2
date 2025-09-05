@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
+import { randomEntry } from "@/models/Entry/random";
 import { getInfomation } from "./getInfomation";
 import { createTestRiotApi } from "./test/createTestRiotApi";
-import { randomEntry } from "./test/randomEntry";
 
 describe("getInfomation", () => {
   const riotApi = createTestRiotApi({

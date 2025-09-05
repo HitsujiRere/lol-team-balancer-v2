@@ -1,14 +1,7 @@
 import { RANK_NUMBERS, TIERS } from "@packages/models/Rank";
 import type { Entry } from "@/models/Entry";
 import { QUEUE_TYPES } from "@/models/QueueType";
-
-const randomBetween = (begin: number, end: number) => {
-  return Math.floor(Math.random() * (end - begin)) + begin;
-};
-
-const choice = <T>(array: readonly T[]) => {
-  return array[randomBetween(0, array.length)] as T;
-};
+import { choice, randomBetween } from "@/utils/random";
 
 export const randomEntry = (partial: Partial<Entry>): Entry => ({
   leagueId: randomBetween(0, 16 ** 4).toString(16),

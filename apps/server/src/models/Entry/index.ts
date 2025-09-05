@@ -1,5 +1,5 @@
 import type { RankNumber, Tier } from "@packages/models/Rank";
-import type { QueueType } from "./QueueType";
+import type { QueueType } from "../QueueType";
 
 /**
  * リーグごとのエントリー情報。

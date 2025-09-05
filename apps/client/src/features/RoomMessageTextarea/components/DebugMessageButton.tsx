@@ -13,7 +13,7 @@ export const DebugMessageButton = ({
 
   const setRandomMessage = useCallback(() => {
     const newMessage = names
-      .map((name) => `${name}${Math.floor(Math.random() * 10)} #DEBUG`)
+      .map((name) => `${name}${Math.floor(Math.random() * 10)} #JP1🔧`)
       .map((name) => `${name}がロビーに参加しました。`)
       .join("\n");
     setMessage(newMessage);

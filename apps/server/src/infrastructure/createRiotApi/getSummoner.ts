@@ -1,5 +1,6 @@
 import z from "zod";
 import type { Summoner } from "@/models/Summoner";
+import { randomSummoner } from "@/models/Summoner/random";
 
 const schema = z.object({
   puuid: z.string(),
@@ -18,6 +19,10 @@ export const getSummoner = async (
   riotApiKey: string,
   puuId: string,
 ): Promise<Summoner | undefined> => {
+  if (puuId === "RANDOM") {
+    return randomSummoner({});
+  }
+
   try {
     const data = await fetch(
       `https://jp1.api.riotgames.com/lol/summoner/v4/summoners/by-puuid/${puuId}`,
