@@ -10,7 +10,7 @@
     "test": "vitest run"
   },
   "main": "./src/index.ts",
-  "types": "./dist/client/src/index.d.ts",
+  "types": "./dist-types/src/index.d.ts",
   "dependencies": {
     "@packages/models": "workspace:^",
     "hono": "^4.9.5",

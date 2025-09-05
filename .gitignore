@@ -1,6 +1,7 @@
 # prod
 dist/
 dist-server/
+dist-types/
 
 # dev
 .yarn/
@@ -18,8 +19,10 @@ node_modules/
 .turbo
 
 # env
-.env
-.env.production
+# .env
+# .env.production
+.env.local
+.env.*.local
 .dev.vars
 
 # logs
