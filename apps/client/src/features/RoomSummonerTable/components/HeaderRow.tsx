@@ -21,3 +21,5 @@ export const HeaderRow = () => {
     </TableRow>
   );
 };
+
+export const columns = 5;

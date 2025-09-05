@@ -2,10 +2,16 @@ import { SwordsIcon, UsersIcon } from "lucide-react";
 import { useEffect } from "react";
 import { useShallow } from "zustand/shallow";
 import { Button } from "@/components/ui/button";
-import { Table, TableBody, TableHeader } from "@/components/ui/table";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { useRoomStore } from "@/stores/useRoomStore";
 import { FetchButton } from "./components/FetchButton";
-import { HeaderRow } from "./components/HeaderRow";
+import { columns, HeaderRow } from "./components/HeaderRow";
 import { SummonerRow } from "./components/SummonerRow";
 import { useSelectionStores } from "./stores/useSelectionStore";
 
@@ -48,9 +54,18 @@ export const RoomSummonerTable = () => {
             <HeaderRow />
           </TableHeader>
           <TableBody>
-            {names.map((name) => (
-              <SummonerRow key={name} name={name} />
-            ))}
+            {names.length > 0 ? (
+              names.map((name) => <SummonerRow key={name} name={name} />)
+            ) : (
+              <TableRow>
+                <TableCell
+                  colSpan={columns}
+                  className="h-24 text-center text-base"
+                >
+                  ルームチャットをコピペすることで簡単に追加できます！
+                </TableCell>
+              </TableRow>
+            )}
           </TableBody>
         </Table>
       </div>
