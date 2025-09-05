@@ -6,7 +6,9 @@ export const findRiotIdsInMessage = (message: string): RiotId[] => {
       [],
   );
 
-  return names
+  const uniqueNames = [...new Set(names)];
+
+  return uniqueNames
     .map((name) => parseRiotId(name))
     .filter((riotId) => riotId !== undefined);
 };
