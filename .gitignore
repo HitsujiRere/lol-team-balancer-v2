@@ -17,6 +17,7 @@ dist-types/
 node_modules/
 .wrangler
 .turbo
+.vercel
 
 # env
 # .env
