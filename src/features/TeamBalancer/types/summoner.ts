@@ -1,10 +1,11 @@
+import type { Rank } from "@/types/rank";
 import type { RiotId } from "@/types/riot-id";
 
 export type Summoner = {
   name: string;
   riot_id?: RiotId;
   level: number;
-  rank: string;
+  rank: Rank;
   top_priority: number;
   jg_priority: number;
   mid_priority: number;
@@ -22,7 +23,7 @@ export const createSummoner = (
   name,
   riot_id: init.riot_id,
   level: init.level ?? 0,
-  rank: init.rank ?? "Unranked",
+  rank: init.rank ?? "UNRANKED",
   top_priority: init.top_priority ?? 0,
   jg_priority: init.jg_priority ?? 0,
   mid_priority: init.mid_priority ?? 0,

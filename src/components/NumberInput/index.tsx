@@ -1,37 +1,29 @@
-import { err, ok, type Result } from "neverthrow";
+import type { Result } from "neverthrow";
 import { type ChangeEvent, useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
+import { cn } from "@/lib/utils";
 
-const encode = (value?: number): string => {
-  if (value === undefined || value === 0) {
-    return "";
-  }
-  return `${value}`;
-};
-
-const decode = (value: string): Result<number, void> => {
-  if (value === "") {
-    return ok(0);
-  }
-  const parsed = Number(value);
-  if (Number.isNaN(parsed)) {
-    return err();
-  }
-  return ok(parsed);
+type NumberInputProps = Omit<
+  React.ComponentProps<"input">,
+  "value" | "onChange"
+> & {
+  value: number;
+  onValueChange: (value: number) => void;
+  encode: (value: number) => string;
+  decode: (value: string) => Result<number, void>;
 };
 
 export const NumberInput = ({
   value,
   onValueChange,
+  encode,
+  decode,
   ...props
-}: Omit<React.ComponentProps<"input">, "value" | "onChange"> & {
-  value?: number;
-  onValueChange: (value: number) => void;
-}) => {
+}: NumberInputProps) => {
   const [dirty, setDirty] = useState(encode(value));
   useEffect(() => {
     setDirty(encode(value));
-  }, [value]);
+  }, [encode, value]);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const dirty = event.target.value;
@@ -53,6 +45,22 @@ export const NumberInput = ({
       value={dirty}
       onChange={handleChange}
       onBlur={handleBlur}
+      {...props}
+    />
+  );
+};
+
+export const InputGroupNumberInput = ({
+  className,
+  ...props
+}: NumberInputProps) => {
+  return (
+    <NumberInput
+      data-slot="input-group-control"
+      className={cn(
+        "flex-1 rounded-none border-0 bg-transparent shadow-none focus-visible:ring-0 dark:bg-transparent",
+        className,
+      )}
       {...props}
     />
   );

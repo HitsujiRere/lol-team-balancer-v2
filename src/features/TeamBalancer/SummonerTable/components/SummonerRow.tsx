@@ -1,14 +1,15 @@
 import { useAtom, useAtomValue } from "jotai/react";
 import type { PrimitiveAtom } from "jotai/vanilla";
 import { MicIcon, MicOffIcon } from "lucide-react";
+import { LevelInput } from "@/components/LevelInput";
+import { RankSelect } from "@/components/RankSelect";
+import { Stars } from "@/components/Stars";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { TableCell, TableRow } from "@/components/ui/table";
 import { Toggle } from "@/components/ui/toggle";
 import { roomAtom } from "../../stores/room";
 import type { Summoner } from "../../types/summoner";
-import { NumberInput } from "./NumberInput";
-import { Stars } from "./Stars";
 
 export const SummonerRow = ({
   summonerAtom,
@@ -29,23 +30,18 @@ export const SummonerRow = ({
       </TableCell>
       <TableCell>{summoner.name}</TableCell>
       <TableCell>
-        <NumberInput
-          className="w-24"
-          value={summoner.level}
-          onValueChange={(level) =>
+        <LevelInput
+          level={summoner.level}
+          onChange={(level) =>
             setSummoner((summoner) => ({ ...summoner, level }))
           }
         />
       </TableCell>
       <TableCell>
-        <Input
-          className="w-24"
-          value={summoner.rank}
-          onChange={(event) =>
-            setSummoner((summoner) => ({
-              ...summoner,
-              rank: event.target.value,
-            }))
+        <RankSelect
+          rank={summoner.rank}
+          onChange={(rank) =>
+            setSummoner((summoner) => ({ ...summoner, rank }))
           }
         />
       </TableCell>
