@@ -10,6 +10,7 @@ import { cn } from "@/lib/utils";
 import { formatRiotId } from "@/types/riot-id";
 import { roomAtom } from "../stores/room";
 import { summonersAtom } from "../stores/summoner";
+import { createSummoner } from "../types/summoner";
 import { findRiotIds } from "./utils/find-riot-ids";
 
 export const ChatInput = ({
@@ -29,12 +30,14 @@ export const ChatInput = ({
     // summonersAtomに無いなら追加する
     setSummoners((summoners) => {
       const names = new Set(summoners.map((summoner) => summoner.name));
+      const newSummoners = [...summoners];
       riotIds.forEach((riotId) => {
         const name = formatRiotId(riotId);
         if (!names.has(name)) {
-          summoners.push({ name, riotId });
+          newSummoners.push(createSummoner(name, { riot_id: riotId }));
         }
       });
+      return newSummoners;
     });
     // roomAtomを更新
     setRoom(riotIds.map((id) => formatRiotId(id)));

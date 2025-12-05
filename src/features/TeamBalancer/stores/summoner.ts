@@ -1,6 +1,9 @@
 import { splitAtom } from "jotai/utils";
-import { atomWithMutative } from "jotai-mutative";
+import { atom } from "jotai/vanilla";
 import type { Summoner } from "../types/summoner";
 
-export const summonersAtom = atomWithMutative<Summoner[]>([]);
-export const summonersAtomsAtom = splitAtom(summonersAtom);
+export const summonersAtom = atom<Summoner[]>([]);
+export const summonersAtomsAtom = splitAtom(
+  summonersAtom,
+  (summoner) => summoner.name,
+);

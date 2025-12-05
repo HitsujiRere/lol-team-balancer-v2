@@ -66,15 +66,9 @@ importers:
       jotai:
         specifier: ^2.15.2
         version: 2.15.2(@types/react@19.2.7)(react@19.2.1)
-      jotai-mutative:
-        specifier: ^1.2.1
-        version: 1.2.1(@types/react@19.2.7)(jotai@2.15.2(@types/react@19.2.7)(react@19.2.1))(mutative@1.3.0)(react@19.2.1)
       lucide-react:
         specifier: ^0.555.0
         version: 0.555.0(react@19.2.1)
-      mutative:
-        specifier: ^1.3.0
-        version: 1.3.0
       neverthrow:
         specifier: ^8.2.0
         version: 8.2.0
@@ -1189,14 +1183,6 @@ packages:
     resolution: {integrity: sha512-ekilCSN1jwRvIbgeg/57YFh8qQDNbwDb9xT/qu2DAHbFFZUicIl4ygVaAvzveMhMVr3LnpSKTNnwt8PoOfmKhQ==}
     hasBin: true
 
-  jotai-mutative@1.2.1:
-    resolution: {integrity: sha512-nys4k0G1WvsOwlS1C5zDNnwSlKImg7ML2Rcj+7TFm8OJibZQ8a+ODLTcoxRosxbMbIM+kappVGPFg8j4/MwRug==}
-    peerDependencies:
-      '@types/react': ^18.0 || ^17.0 || ^19.0
-      jotai: ^2.0
-      mutative: ^1.3.0
-      react: ^17.0 || ^18.0 || ^19.0
-
   jotai@2.15.2:
     resolution: {integrity: sha512-El86CCfXNMEOytp20NPfppqGGmcp6H6kIA+tJHdmASEUURJCYW4fh8nTHEnB8rUXEFAY1pm8PdHPwnrcPGwdEg==}
     engines: {node: '>=12.20.0'}
@@ -1295,10 +1281,6 @@ packages:
 
   ms@2.1.3:
     resolution: {integrity: sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==}
-
-  mutative@1.3.0:
-    resolution: {integrity: sha512-8MJj6URmOZAV70dpFe1YnSppRTKC4DsMkXQiBDFayLcDI4ljGokHxmpqaBQuDWa4iAxWaJJ1PS8vAmbntjjKmQ==}
-    engines: {node: '>=14.0'}
 
   nanoid@3.3.11:
     resolution: {integrity: sha512-N8SpfPUnUp1bK+PMYW8qSWdl9U+wwNWI4QKxOYDy9JAro3WMX7p2OeVRF9v+347pnakNevPmiHhNmZ2HbFA76w==}
@@ -2419,13 +2401,6 @@ snapshots:
 
   jiti@2.6.1: {}
 
-  jotai-mutative@1.2.1(@types/react@19.2.7)(jotai@2.15.2(@types/react@19.2.7)(react@19.2.1))(mutative@1.3.0)(react@19.2.1):
-    dependencies:
-      '@types/react': 19.2.7
-      jotai: 2.15.2(@types/react@19.2.7)(react@19.2.1)
-      mutative: 1.3.0
-      react: 19.2.1
-
   jotai@2.15.2(@types/react@19.2.7)(react@19.2.1):
     optionalDependencies:
       '@types/react': 19.2.7
@@ -2489,8 +2464,6 @@ snapshots:
       '@jridgewell/sourcemap-codec': 1.5.5
 
   ms@2.1.3: {}
-
-  mutative@1.3.0: {}
 
   nanoid@3.3.11: {}
 
