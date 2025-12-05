@@ -5,11 +5,11 @@ import { LevelInput } from "@/components/LevelInput";
 import { RankSelect } from "@/components/RankSelect";
 import { Stars } from "@/components/Stars";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Input } from "@/components/ui/input";
 import { TableCell, TableRow } from "@/components/ui/table";
 import { Toggle } from "@/components/ui/toggle";
 import { roomAtom } from "../../stores/room";
 import type { Summoner } from "../../types/summoner";
+import { FixedPositionSelect } from "./FixedPositionSelect";
 
 export const SummonerRow = ({
   summonerAtom,
@@ -102,26 +102,14 @@ export const SummonerRow = ({
         </Toggle>
       </TableCell>
       <TableCell>
-        <Input
-          className="w-12"
-          value={summoner.fixed_team}
-          onChange={(event) =>
-            setSummoner((summoner) => ({
-              ...summoner,
-              fixed_team: event.target.value,
-            }))
+        <FixedPositionSelect
+          team={summoner.fixed_team}
+          lane={summoner.fixed_lane}
+          onTeamChange={(fixed_team) =>
+            setSummoner((summoner) => ({ ...summoner, fixed_team }))
           }
-        />
-      </TableCell>
-      <TableCell>
-        <Input
-          className="w-12"
-          value={summoner.fixed_lane}
-          onChange={(event) =>
-            setSummoner((summoner) => ({
-              ...summoner,
-              fixed_lane: event.target.value,
-            }))
+          onLaneChange={(fixed_lane) =>
+            setSummoner((summoner) => ({ ...summoner, fixed_lane }))
           }
         />
       </TableCell>

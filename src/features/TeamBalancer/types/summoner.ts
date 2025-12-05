@@ -1,5 +1,7 @@
 import type { Rank } from "@/types/rank";
 import type { RiotId } from "@/types/riot-id";
+import type { Lane } from "./lane";
+import type { Team } from "./team";
 
 export type Summoner = {
   name: string;
@@ -12,8 +14,8 @@ export type Summoner = {
   bot_priority: number;
   sup_priority: number;
   is_mute: boolean;
-  fixed_team: string;
-  fixed_lane: string;
+  fixed_team: Team;
+  fixed_lane: Lane;
 };
 
 export const createSummoner = (
@@ -30,6 +32,6 @@ export const createSummoner = (
   bot_priority: init.bot_priority ?? 0,
   sup_priority: init.sup_priority ?? 0,
   is_mute: init.is_mute ?? false,
-  fixed_team: init.fixed_team ?? "青",
-  fixed_lane: init.fixed_lane ?? "Top",
+  fixed_team: init.fixed_team ?? "UNSET",
+  fixed_lane: init.fixed_lane ?? "UNSET",
 });

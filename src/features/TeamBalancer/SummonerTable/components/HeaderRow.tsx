@@ -16,8 +16,7 @@ export const HeaderRow = () => {
       <TableHead>BOT</TableHead>
       <TableHead>SUP</TableHead>
       <TableHead>聞き専</TableHead>
-      <TableHead>チーム固定</TableHead>
-      <TableHead>レーン固定</TableHead>
+      <TableHead>ポジション固定</TableHead>
     </TableRow>
   );
 };
