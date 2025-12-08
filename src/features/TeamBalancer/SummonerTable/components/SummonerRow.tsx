@@ -8,20 +8,24 @@ import { TableCell, TableRow } from "@/components/ui/table";
 import { Toggle } from "@/components/ui/toggle";
 import { roomAtom } from "../../stores/room";
 import { selectionFamily } from "../../stores/selection";
-import type { Summoner } from "../../types/summoner";
+import { lockedSummonerLane, type Summoner } from "../../types/summoner";
 import { LanePriorityToggle } from "./LanePriorityToggle";
+import type { LaneSetting } from "./LaneSettingToggle";
 import { TeamSelect } from "./TeamSelect";
 
 export const SummonerRow = ({
   summonerAtom,
+  laneSetting,
 }: {
   summonerAtom: PrimitiveAtom<Summoner>;
+  laneSetting: LaneSetting;
 }) => {
   const [summoner, setSummoner] = useAtom(summonerAtom);
-
   const room = useAtomValue(roomAtom);
 
   const [isSelected, setIsSelected] = useAtom(selectionFamily(summoner.name));
+
+  const lockedLane = lockedSummonerLane(summoner);
 
   if (!room.includes(summoner.name)) {
     return undefined;
@@ -49,46 +53,62 @@ export const SummonerRow = ({
           }
         />
       </TableCell>
-      <TableCell>
-        <LanePriorityToggle
-          priority={summoner.top_priority}
-          onChange={(top_priority) =>
-            setSummoner((summoner) => ({ ...summoner, top_priority }))
-          }
-        />
-      </TableCell>
-      <TableCell>
-        <LanePriorityToggle
-          priority={summoner.jg_priority}
-          onChange={(jg_priority) =>
-            setSummoner((summoner) => ({ ...summoner, jg_priority }))
-          }
-        />
-      </TableCell>
-      <TableCell>
-        <LanePriorityToggle
-          priority={summoner.mid_priority}
-          onChange={(mid_priority) =>
-            setSummoner((summoner) => ({ ...summoner, mid_priority }))
-          }
-        />
-      </TableCell>
-      <TableCell>
-        <LanePriorityToggle
-          priority={summoner.bot_priority}
-          onChange={(bot_priority) =>
-            setSummoner((summoner) => ({ ...summoner, bot_priority }))
-          }
-        />
-      </TableCell>
-      <TableCell>
-        <LanePriorityToggle
-          priority={summoner.sup_priority}
-          onChange={(sup_priority) =>
-            setSummoner((summoner) => ({ ...summoner, sup_priority }))
-          }
-        />
-      </TableCell>
+
+      {laneSetting !== "HIDDEN" && (
+        <>
+          <TableCell>
+            <LanePriorityToggle
+              priority={summoner.top_priority}
+              locked={lockedLane !== "UNSET" && lockedLane !== "TOP"}
+              showDetails={laneSetting === "DETAILED"}
+              onChange={(top_priority) =>
+                setSummoner((summoner) => ({ ...summoner, top_priority }))
+              }
+            />
+          </TableCell>
+          <TableCell>
+            <LanePriorityToggle
+              priority={summoner.jg_priority}
+              locked={lockedLane !== "UNSET" && lockedLane !== "JG"}
+              showDetails={laneSetting === "DETAILED"}
+              onChange={(jg_priority) =>
+                setSummoner((summoner) => ({ ...summoner, jg_priority }))
+              }
+            />
+          </TableCell>
+          <TableCell>
+            <LanePriorityToggle
+              priority={summoner.mid_priority}
+              locked={lockedLane !== "UNSET" && lockedLane !== "MID"}
+              showDetails={laneSetting === "DETAILED"}
+              onChange={(mid_priority) =>
+                setSummoner((summoner) => ({ ...summoner, mid_priority }))
+              }
+            />
+          </TableCell>
+          <TableCell>
+            <LanePriorityToggle
+              priority={summoner.bot_priority}
+              locked={lockedLane !== "UNSET" && lockedLane !== "BOT"}
+              showDetails={laneSetting === "DETAILED"}
+              onChange={(bot_priority) =>
+                setSummoner((summoner) => ({ ...summoner, bot_priority }))
+              }
+            />
+          </TableCell>
+          <TableCell>
+            <LanePriorityToggle
+              priority={summoner.sup_priority}
+              locked={lockedLane !== "UNSET" && lockedLane !== "SUP"}
+              showDetails={laneSetting === "DETAILED"}
+              onChange={(sup_priority) =>
+                setSummoner((summoner) => ({ ...summoner, sup_priority }))
+              }
+            />
+          </TableCell>
+        </>
+      )}
+
       <TableCell>
         <Toggle
           className="group relative"

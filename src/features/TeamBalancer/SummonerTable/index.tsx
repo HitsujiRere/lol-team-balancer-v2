@@ -2,41 +2,42 @@
 
 import { useAtomValue } from "jotai/react";
 import { SearchIcon } from "lucide-react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableHeader } from "@/components/ui/table";
-import { roomAtom } from "../stores/room";
-import { summonersAtom, summonersAtomsAtom } from "../stores/summoner";
+import { summonersAtomsAtom } from "../stores/summoner";
 import { HeaderRow } from "./components/HeaderRow";
+import {
+  type LaneSetting,
+  LaneSettingToggle,
+} from "./components/LaneSettingToggle";
 import { SummonerRow } from "./components/SummonerRow";
 
 export const SummonerTable = () => {
   const summonersAtoms = useAtomValue(summonersAtomsAtom);
-  const summoners = useAtomValue(summonersAtom);
-  const room = useAtomValue(roomAtom);
+
+  const [laneSetting, setLaneSetting] = useState<LaneSetting>("SIMPLE");
 
   return (
     <>
-      <div className="overflow-auto">
-        {summoners.map((summoner) => (
-          <p key={summoner.name} className="whitespace-nowrap text-sm">
-            {JSON.stringify(summoner)}
-          </p>
-        ))}
-        <p className="text-sm">{JSON.stringify(room)}</p>
-      </div>
-      <div className="mb-2">
+      <div className="mb-2 flex gap-4">
         <Button>
           <SearchIcon />
           サモナー検索
         </Button>
+        <LaneSettingToggle setting={laneSetting} onChange={setLaneSetting} />
       </div>
       <Table>
         <TableHeader>
-          <HeaderRow />
+          <HeaderRow laneSetting={laneSetting} />
         </TableHeader>
         <TableBody>
           {summonersAtoms.map((summonerAtom) => (
-            <SummonerRow key={`${summonerAtom}`} summonerAtom={summonerAtom} />
+            <SummonerRow
+              key={`${summonerAtom}`}
+              summonerAtom={summonerAtom}
+              laneSetting={laneSetting}
+            />
           ))}
         </TableBody>
         {/* <TableFooter>

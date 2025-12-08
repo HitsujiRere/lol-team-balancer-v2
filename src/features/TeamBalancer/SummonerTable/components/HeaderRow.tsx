@@ -3,8 +3,9 @@ import { useMemo } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { TableHead, TableRow } from "@/components/ui/table";
 import { selectionAtom } from "../../stores/selection";
+import type { LaneSetting } from "./LaneSettingToggle";
 
-export const HeaderRow = () => {
+export const HeaderRow = ({ laneSetting }: { laneSetting: LaneSetting }) => {
   const [selection, setSelection] = useAtom(selectionAtom);
 
   const selectedAll = useMemo(() => {
@@ -35,11 +36,15 @@ export const HeaderRow = () => {
       <TableHead>名前</TableHead>
       <TableHead>レベル</TableHead>
       <TableHead>ランク</TableHead>
-      <TableHead>TOP</TableHead>
-      <TableHead>JG</TableHead>
-      <TableHead>MID</TableHead>
-      <TableHead>BOT</TableHead>
-      <TableHead>SUP</TableHead>
+      {laneSetting !== "HIDDEN" && (
+        <>
+          <TableHead>TOP</TableHead>
+          <TableHead>JG</TableHead>
+          <TableHead>MID</TableHead>
+          <TableHead>BOT</TableHead>
+          <TableHead>SUP</TableHead>
+        </>
+      )}
       <TableHead>聞き専</TableHead>
       <TableHead>ポジション固定</TableHead>
     </TableRow>
