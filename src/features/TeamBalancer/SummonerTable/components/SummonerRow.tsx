@@ -7,6 +7,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { TableCell, TableRow } from "@/components/ui/table";
 import { Toggle } from "@/components/ui/toggle";
 import { roomAtom } from "../../stores/room";
+import { selectionFamily } from "../../stores/selection";
 import type { Summoner } from "../../types/summoner";
 import { LanePriorityToggle } from "./LanePriorityToggle";
 import { TeamSelect } from "./TeamSelect";
@@ -17,7 +18,10 @@ export const SummonerRow = ({
   summonerAtom: PrimitiveAtom<Summoner>;
 }) => {
   const [summoner, setSummoner] = useAtom(summonerAtom);
+
   const room = useAtomValue(roomAtom);
+
+  const [isSelected, setIsSelected] = useAtom(selectionFamily(summoner.name));
 
   if (!room.includes(summoner.name)) {
     return undefined;
@@ -26,7 +30,7 @@ export const SummonerRow = ({
   return (
     <TableRow>
       <TableCell>
-        <Checkbox />
+        <Checkbox checked={isSelected} onCheckedChange={setIsSelected} />
       </TableCell>
       <TableCell>{summoner.name}</TableCell>
       <TableCell>

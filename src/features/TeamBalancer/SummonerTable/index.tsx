@@ -3,15 +3,9 @@
 import { useAtomValue } from "jotai/react";
 import { SearchIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-  Table,
-  TableBody,
-  TableFooter,
-  TableHeader,
-} from "@/components/ui/table";
+import { Table, TableBody, TableHeader } from "@/components/ui/table";
 import { roomAtom } from "../stores/room";
 import { summonersAtom, summonersAtomsAtom } from "../stores/summoner";
-import { FooterRow } from "./components/FooterRow";
 import { HeaderRow } from "./components/HeaderRow";
 import { SummonerRow } from "./components/SummonerRow";
 
@@ -45,9 +39,9 @@ export const SummonerTable = () => {
             <SummonerRow key={`${summonerAtom}`} summonerAtom={summonerAtom} />
           ))}
         </TableBody>
-        <TableFooter>
+        {/* <TableFooter>
           <FooterRow />
-        </TableFooter>
+        </TableFooter> */}
       </Table>
     </>
   );
