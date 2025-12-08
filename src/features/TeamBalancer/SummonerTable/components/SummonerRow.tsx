@@ -3,13 +3,13 @@ import type { PrimitiveAtom } from "jotai/vanilla";
 import { MicIcon, MicOffIcon } from "lucide-react";
 import { LevelInput } from "@/components/LevelInput";
 import { RankSelect } from "@/components/RankSelect";
-import { Stars } from "@/components/Stars";
 import { Checkbox } from "@/components/ui/checkbox";
 import { TableCell, TableRow } from "@/components/ui/table";
 import { Toggle } from "@/components/ui/toggle";
 import { roomAtom } from "../../stores/room";
 import type { Summoner } from "../../types/summoner";
-import { FixedPositionSelect } from "./FixedPositionSelect";
+import { LanePriorityToggle } from "./LanePriorityToggle";
+import { TeamSelect } from "./TeamSelect";
 
 export const SummonerRow = ({
   summonerAtom,
@@ -46,45 +46,40 @@ export const SummonerRow = ({
         />
       </TableCell>
       <TableCell>
-        <Stars
-          size={3}
-          value={summoner.top_priority}
+        <LanePriorityToggle
+          priority={summoner.top_priority}
           onChange={(top_priority) =>
             setSummoner((summoner) => ({ ...summoner, top_priority }))
           }
         />
       </TableCell>
       <TableCell>
-        <Stars
-          size={3}
-          value={summoner.jg_priority}
+        <LanePriorityToggle
+          priority={summoner.jg_priority}
           onChange={(jg_priority) =>
             setSummoner((summoner) => ({ ...summoner, jg_priority }))
           }
         />
       </TableCell>
       <TableCell>
-        <Stars
-          size={3}
-          value={summoner.mid_priority}
+        <LanePriorityToggle
+          priority={summoner.mid_priority}
           onChange={(mid_priority) =>
             setSummoner((summoner) => ({ ...summoner, mid_priority }))
           }
         />
       </TableCell>
       <TableCell>
-        <Stars
-          size={3}
-          value={summoner.bot_priority}
+        <LanePriorityToggle
+          priority={summoner.bot_priority}
           onChange={(bot_priority) =>
             setSummoner((summoner) => ({ ...summoner, bot_priority }))
           }
         />
       </TableCell>
       <TableCell>
-        <Stars
-          size={3}
-          value={summoner.sup_priority}
+        <LanePriorityToggle
+          priority={summoner.sup_priority}
           onChange={(sup_priority) =>
             setSummoner((summoner) => ({ ...summoner, sup_priority }))
           }
@@ -102,14 +97,10 @@ export const SummonerRow = ({
         </Toggle>
       </TableCell>
       <TableCell>
-        <FixedPositionSelect
+        <TeamSelect
           team={summoner.fixed_team}
-          lane={summoner.fixed_lane}
-          onTeamChange={(fixed_team) =>
+          onChange={(fixed_team) =>
             setSummoner((summoner) => ({ ...summoner, fixed_team }))
-          }
-          onLaneChange={(fixed_lane) =>
-            setSummoner((summoner) => ({ ...summoner, fixed_lane }))
           }
         />
       </TableCell>
