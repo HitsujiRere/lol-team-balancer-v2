@@ -1,7 +1,7 @@
 import type { Lane } from "../lane";
 import type { Summoner } from "./summoner";
 
-export const lockedSummonerLane = (summoner: Summoner): Lane => {
+export const lockedSummonerLane = (summoner: Summoner): Lane | undefined => {
   if (summoner.top_priority === "LOCK") {
     return "TOP";
   }
@@ -17,5 +17,5 @@ export const lockedSummonerLane = (summoner: Summoner): Lane => {
   if (summoner.sup_priority === "LOCK") {
     return "SUP";
   }
-  return "UNSET";
+  return undefined;
 };

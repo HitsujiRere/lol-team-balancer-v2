@@ -14,6 +14,9 @@ export const createSummoner = (
   bot_priority: init.bot_priority ?? "MEDIUM",
   sup_priority: init.sup_priority ?? "MEDIUM",
   is_mute: init.is_mute ?? false,
-  fixed_team: init.fixed_team ?? "UNSET",
-  fixed_lane: init.fixed_lane ?? "UNSET",
+  fixed_team: init.fixed_team,
+  fetch_status: init.fetch_status ?? "IDLE",
+  icon_id: init.icon_id,
+  rank_wins: init.rank_wins,
+  rank_losses: init.rank_losses,
 });

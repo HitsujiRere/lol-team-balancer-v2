@@ -1,27 +1,38 @@
-"use client";
-
 import { useAtomValue } from "jotai/react";
-import { SearchIcon } from "lucide-react";
+import { ScaleIcon, SearchIcon } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Table, TableBody, TableHeader } from "@/components/ui/table";
-import { summonersAtomsAtom } from "../stores/summoner";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { roomAtom } from "../stores/room";
 import { HeaderRow } from "./components/HeaderRow";
 import {
   type LaneSetting,
   LaneSettingToggle,
 } from "./components/LaneSettingToggle";
 import { SummonerRow } from "./components/SummonerRow";
+import { useFetchSummoners } from "./hooks/use-fetch-summoners";
 
-export const SummonerTable = () => {
-  const summonersAtoms = useAtomValue(summonersAtomsAtom);
+export const SummonerTable = ({ onGrouping }: { onGrouping: () => void }) => {
+  const roomNames = useAtomValue(roomAtom);
 
   const [laneSetting, setLaneSetting] = useState<LaneSetting>("SIMPLE");
+
+  const fetchSummoners = useFetchSummoners();
 
   return (
     <>
       <div className="mb-2 flex gap-4">
-        <Button>
+        <Button onClick={onGrouping}>
+          <ScaleIcon />
+          チーム分け
+        </Button>
+        <Button onClick={fetchSummoners}>
           <SearchIcon />
           サモナー検索
         </Button>
@@ -32,13 +43,17 @@ export const SummonerTable = () => {
           <HeaderRow laneSetting={laneSetting} />
         </TableHeader>
         <TableBody>
-          {summonersAtoms.map((summonerAtom) => (
-            <SummonerRow
-              key={`${summonerAtom}`}
-              summonerAtom={summonerAtom}
-              laneSetting={laneSetting}
-            />
-          ))}
+          {roomNames.length === 0 ? (
+            <TableRow>
+              <TableCell colSpan={99} className="h-32 text-center text-base">
+                ロビーチャットをコピペすることで簡単に追加できます！😊
+              </TableCell>
+            </TableRow>
+          ) : (
+            roomNames.map((name) => (
+              <SummonerRow key={name} name={name} laneSetting={laneSetting} />
+            ))
+          )}
         </TableBody>
         {/* <TableFooter>
           <FooterRow />

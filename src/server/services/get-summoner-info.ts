@@ -8,11 +8,11 @@ import { parseRiotId } from "@/types/riot-id";
 import { createRiotApi } from "../infrastructures/riot";
 
 type SummonerInfo = {
-  summonerLevel: number;
-  profileIconId: number;
-  soloRankedRank: Rank;
-  soloRankedWins: number;
-  soloRankedLosses: number;
+  summoner_level: number;
+  profile_iconId: number;
+  solo_ranked_rank: Rank;
+  solo_ranked_wins: number;
+  solo_ranked_losses: number;
 };
 
 type GetSummonerInfoError = {
@@ -49,13 +49,13 @@ export const getSummonerInfo = (
     );
 
     return ok({
-      summonerLevel: summonerDTO.summonerLevel,
-      profileIconId: summonerDTO.profileIconId,
-      soloRankedRank: soloRanked
+      summoner_level: summonerDTO.summonerLevel,
+      profile_iconId: summonerDTO.profileIconId,
+      solo_ranked_rank: soloRanked
         ? joinRank(soloRanked.tier, soloRanked.rank)
         : "UNRANKED",
-      soloRankedWins: soloRanked?.wins ?? 0,
-      soloRankedLosses: soloRanked?.losses ?? 0,
+      solo_ranked_wins: soloRanked?.wins ?? 0,
+      solo_ranked_losses: soloRanked?.losses ?? 0,
     } satisfies SummonerInfo);
   });
 };

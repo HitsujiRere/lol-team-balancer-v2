@@ -1,5 +1,4 @@
 import { useAtom, useAtomValue } from "jotai/react";
-import type { PrimitiveAtom } from "jotai/vanilla";
 import { MicIcon, MicOffIcon } from "lucide-react";
 import { LevelInput } from "@/components/LevelInput";
 import { RankSelect } from "@/components/RankSelect";
@@ -8,19 +7,21 @@ import { TableCell, TableRow } from "@/components/ui/table";
 import { Toggle } from "@/components/ui/toggle";
 import { roomAtom } from "../../stores/room";
 import { selectionFamily } from "../../stores/selection";
-import { lockedSummonerLane, type Summoner } from "../../types/summoner";
+import { summonerFamily } from "../../stores/summoner";
+import { lockedSummonerLane } from "../../types/summoner";
+import { FetchStatusBadge } from "./FetchStatusBadge";
 import { LanePriorityToggle } from "./LanePriorityToggle";
 import type { LaneSetting } from "./LaneSettingToggle";
 import { TeamSelect } from "./TeamSelect";
 
 export const SummonerRow = ({
-  summonerAtom,
+  name,
   laneSetting,
 }: {
-  summonerAtom: PrimitiveAtom<Summoner>;
+  name: string;
   laneSetting: LaneSetting;
 }) => {
-  const [summoner, setSummoner] = useAtom(summonerAtom);
+  const [summoner, setSummoner] = useAtom(summonerFamily(name));
   const room = useAtomValue(roomAtom);
 
   const [isSelected, setIsSelected] = useAtom(selectionFamily(summoner.name));
@@ -38,19 +39,18 @@ export const SummonerRow = ({
       </TableCell>
       <TableCell>{summoner.name}</TableCell>
       <TableCell>
+        <FetchStatusBadge status={summoner.fetch_status} />
+      </TableCell>
+      <TableCell>
         <LevelInput
           level={summoner.level}
-          onChange={(level) =>
-            setSummoner((summoner) => ({ ...summoner, level }))
-          }
+          onChange={(level) => setSummoner((s) => ({ ...s, level }))}
         />
       </TableCell>
       <TableCell>
         <RankSelect
           rank={summoner.rank}
-          onChange={(rank) =>
-            setSummoner((summoner) => ({ ...summoner, rank }))
-          }
+          onChange={(rank) => setSummoner((s) => ({ ...s, rank }))}
         />
       </TableCell>
 
@@ -59,50 +59,50 @@ export const SummonerRow = ({
           <TableCell>
             <LanePriorityToggle
               priority={summoner.top_priority}
-              locked={lockedLane !== "UNSET" && lockedLane !== "TOP"}
+              locked={!!lockedLane && lockedLane !== "TOP"}
               showDetails={laneSetting === "DETAILED"}
               onChange={(top_priority) =>
-                setSummoner((summoner) => ({ ...summoner, top_priority }))
+                setSummoner((s) => ({ ...s, top_priority }))
               }
             />
           </TableCell>
           <TableCell>
             <LanePriorityToggle
               priority={summoner.jg_priority}
-              locked={lockedLane !== "UNSET" && lockedLane !== "JG"}
+              locked={!!lockedLane && lockedLane !== "JG"}
               showDetails={laneSetting === "DETAILED"}
               onChange={(jg_priority) =>
-                setSummoner((summoner) => ({ ...summoner, jg_priority }))
+                setSummoner((s) => ({ ...s, jg_priority }))
               }
             />
           </TableCell>
           <TableCell>
             <LanePriorityToggle
               priority={summoner.mid_priority}
-              locked={lockedLane !== "UNSET" && lockedLane !== "MID"}
+              locked={!!lockedLane && lockedLane !== "MID"}
               showDetails={laneSetting === "DETAILED"}
               onChange={(mid_priority) =>
-                setSummoner((summoner) => ({ ...summoner, mid_priority }))
+                setSummoner((s) => ({ ...s, mid_priority }))
               }
             />
           </TableCell>
           <TableCell>
             <LanePriorityToggle
               priority={summoner.bot_priority}
-              locked={lockedLane !== "UNSET" && lockedLane !== "BOT"}
+              locked={!!lockedLane && lockedLane !== "BOT"}
               showDetails={laneSetting === "DETAILED"}
               onChange={(bot_priority) =>
-                setSummoner((summoner) => ({ ...summoner, bot_priority }))
+                setSummoner((s) => ({ ...s, bot_priority }))
               }
             />
           </TableCell>
           <TableCell>
             <LanePriorityToggle
               priority={summoner.sup_priority}
-              locked={lockedLane !== "UNSET" && lockedLane !== "SUP"}
+              locked={!!lockedLane && lockedLane !== "SUP"}
               showDetails={laneSetting === "DETAILED"}
               onChange={(sup_priority) =>
-                setSummoner((summoner) => ({ ...summoner, sup_priority }))
+                setSummoner((s) => ({ ...s, sup_priority }))
               }
             />
           </TableCell>
@@ -112,9 +112,7 @@ export const SummonerRow = ({
       <TableCell>
         <Toggle
           className="group relative"
-          onPressedChange={(is_mute) =>
-            setSummoner((summoner) => ({ ...summoner, is_mute }))
-          }
+          onPressedChange={(is_mute) => setSummoner((s) => ({ ...s, is_mute }))}
         >
           <MicIcon className="transition-opacity group-data-[state=on]:opacity-0" />
           <MicOffIcon className="absolute transition-opacity group-data-[state=off]:opacity-0" />
@@ -123,9 +121,7 @@ export const SummonerRow = ({
       <TableCell>
         <TeamSelect
           team={summoner.fixed_team}
-          onChange={(fixed_team) =>
-            setSummoner((summoner) => ({ ...summoner, fixed_team }))
-          }
+          onChange={(fixed_team) => setSummoner((s) => ({ ...s, fixed_team }))}
         />
       </TableCell>
     </TableRow>

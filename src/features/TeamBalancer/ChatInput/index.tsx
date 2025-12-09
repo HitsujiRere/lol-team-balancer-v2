@@ -1,5 +1,3 @@
-"use client";
-
 import { useAtomValue } from "jotai/react";
 import { XIcon } from "lucide-react";
 import { useId, useState } from "react";

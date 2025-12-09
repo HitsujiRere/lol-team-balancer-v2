@@ -9,14 +9,13 @@ import { createSummoner } from "../../types/summoner";
 export const useAppendSummoners = () =>
   useAtomCallback(
     useCallback(async (_get, set, riotIds: RiotId[]) => {
-      // summonersAtomに無いなら追加す
+      // summonersAtomに無いなら新規作成
       set(summonersAtom, (summoners) => {
-        const existedNames = new Set(summoners.map((s) => s.name));
-        const newSummoners = [...summoners];
+        const newSummoners = new Map(summoners);
         riotIds.forEach((riotId) => {
           const name = formatRiotId(riotId);
-          if (!existedNames.has(name)) {
-            newSummoners.push(createSummoner(name, { riot_id: riotId }));
+          if (!summoners.has(name)) {
+            newSummoners.set(name, createSummoner(name, { riot_id: riotId }));
           }
         });
         return newSummoners;

@@ -13,7 +13,7 @@ export default function Home() {
         <Settings />
       </header>
 
-      <main className="mx-8">
+      <main className="mx-8 mb-32">
         <TeamBalancer />
       </main>
     </div>

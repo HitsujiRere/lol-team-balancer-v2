@@ -5,11 +5,11 @@ export const TeamSelect = ({
   team,
   onChange,
 }: {
-  team: Team;
-  onChange: (team: Team) => void;
+  team?: Team;
+  onChange: (team: Team | undefined) => void;
 }) => {
   const handleChange = (value: string) => {
-    onChange(value === "" ? "UNSET" : (value as Team));
+    onChange(value === "" ? undefined : (value as Team));
   };
 
   return (
