@@ -1,6 +1,6 @@
 import { useAtomValue } from "jotai/react";
 import { ScaleIcon, SearchIcon } from "lucide-react";
-import { lazy, Suspense, useDeferredValue, useState } from "react";
+import { useDeferredValue, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Table,
@@ -15,9 +15,8 @@ import {
   type LaneSetting,
   LaneSettingToggle,
 } from "./components/LaneSettingToggle";
+import { SummonerRow } from "./components/SummonerRow";
 import { useFetchSummoners } from "./hooks/use-fetch-summoners";
-
-const SummonerRow = lazy(() => import("./components/SummonerRow"));
 
 export const SummonerTable = ({ onGrouping }: { onGrouping: () => void }) => {
   const roomNames = useDeferredValue(useAtomValue(roomAtom), []);
@@ -44,25 +43,17 @@ export const SummonerTable = ({ onGrouping }: { onGrouping: () => void }) => {
           <HeaderRow laneSetting={laneSetting} />
         </TableHeader>
         <TableBody>
-          <Suspense
-            fallback={
-              <TableRow>
-                <TableCell>Loading</TableCell>
-              </TableRow>
-            }
-          >
-            {roomNames.length === 0 ? (
-              <TableRow>
-                <TableCell colSpan={99} className="h-32 text-center text-base">
-                  ロビーチャットをコピペすることで簡単に追加できます！😊
-                </TableCell>
-              </TableRow>
-            ) : (
-              roomNames.map((name) => (
-                <SummonerRow key={name} name={name} laneSetting={laneSetting} />
-              ))
-            )}
-          </Suspense>
+          {roomNames.length === 0 ? (
+            <TableRow>
+              <TableCell colSpan={99} className="h-32 text-center text-base">
+                ロビーチャットをコピペすることで簡単に追加できます！😊
+              </TableCell>
+            </TableRow>
+          ) : (
+            roomNames.map((name) => (
+              <SummonerRow key={name} name={name} laneSetting={laneSetting} />
+            ))
+          )}
         </TableBody>
         {/* <TableFooter>
           <FooterRow />

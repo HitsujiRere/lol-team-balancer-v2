@@ -13,7 +13,7 @@ import { LanePriorityToggle } from "./LanePriorityToggle";
 import type { LaneSetting } from "./LaneSettingToggle";
 import { TeamSelect } from "./TeamSelect";
 
-const SummonerRow = ({
+export const SummonerRow = ({
   name,
   laneSetting,
 }: {
@@ -121,5 +121,3 @@ const SummonerRow = ({
     </TableRow>
   );
 };
-
-export default SummonerRow;
