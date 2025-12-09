@@ -1,13 +1,16 @@
 "use client";
 
+import { useAtomValue } from "jotai/react";
 import { XIcon } from "lucide-react";
 import { useId, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
+import { debugModeAtom } from "@/stores/debug-mode";
 import { useAppendSummoners } from "./hooks/use-append-summoners";
 import { findRiotIds } from "./utils/find-riot-ids";
+import { randomMessage } from "./utils/random-message";
 
 export const ChatInput = ({
   className,
@@ -16,6 +19,7 @@ export const ChatInput = ({
   const textareaId = useId();
   const [chat, setChat] = useState("");
 
+  const debugMode = useAtomValue(debugModeAtom);
   const appendSummoners = useAppendSummoners();
 
   const changeChat = (chat: string) => {
@@ -43,6 +47,17 @@ export const ChatInput = ({
           <XIcon />
         </Button>
       </div>
+      {debugMode && (
+        <div>
+          <Button
+            size="sm"
+            variant="destructive"
+            onClick={() => changeChat(randomMessage())}
+          >
+            仮メッセージ
+          </Button>
+        </div>
+      )}
     </div>
   );
 };
