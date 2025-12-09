@@ -1,11 +1,10 @@
-import { useAtom, useAtomValue } from "jotai/react";
+import { useAtom } from "jotai/react";
 import { MicIcon, MicOffIcon } from "lucide-react";
 import { LevelInput } from "@/components/LevelInput";
 import { RankSelect } from "@/components/RankSelect";
 import { Checkbox } from "@/components/ui/checkbox";
 import { TableCell, TableRow } from "@/components/ui/table";
 import { Toggle } from "@/components/ui/toggle";
-import { roomAtom } from "../../stores/room";
 import { selectionFamily } from "../../stores/selection";
 import { summonerFamily } from "../../stores/summoner";
 import { lockedSummonerLane } from "../../types/summoner";
@@ -14,7 +13,7 @@ import { LanePriorityToggle } from "./LanePriorityToggle";
 import type { LaneSetting } from "./LaneSettingToggle";
 import { TeamSelect } from "./TeamSelect";
 
-export const SummonerRow = ({
+const SummonerRow = ({
   name,
   laneSetting,
 }: {
@@ -22,15 +21,10 @@ export const SummonerRow = ({
   laneSetting: LaneSetting;
 }) => {
   const [summoner, setSummoner] = useAtom(summonerFamily(name));
-  const room = useAtomValue(roomAtom);
 
   const [isSelected, setIsSelected] = useAtom(selectionFamily(summoner.name));
 
   const lockedLane = lockedSummonerLane(summoner);
-
-  if (!room.includes(summoner.name)) {
-    return undefined;
-  }
 
   return (
     <TableRow>
@@ -127,3 +121,5 @@ export const SummonerRow = ({
     </TableRow>
   );
 };
+
+export default SummonerRow;
