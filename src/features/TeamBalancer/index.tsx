@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { ChatInput } from "./ChatInput";
+import { GroupDialog } from "./GroupDialog";
 import { SummonerTable } from "./SummonerTable";
-import { TeamDialog } from "./TeamDialog";
 
 export const TeamBalancer = () => {
   const [isOpenedTeam, setIsOpenedTeam] = useState(false);
@@ -14,7 +14,7 @@ export const TeamBalancer = () => {
 
       <SummonerTable onGrouping={() => setIsOpenedTeam(true)} />
 
-      <TeamDialog open={isOpenedTeam} onOpenChange={setIsOpenedTeam} />
+      <GroupDialog open={isOpenedTeam} onOpenChange={setIsOpenedTeam} />
     </>
   );
 };

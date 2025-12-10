@@ -6,7 +6,7 @@ import {
 } from "@/components/ui/dialog";
 import { TeamTable } from "./components/TeamTable";
 
-export const TeamDialog = ({
+export const GroupDialog = ({
   open,
   onOpenChange,
 }: {
