@@ -1,21 +1,23 @@
-import type { Lane } from "../lane";
+import type { LaneName } from "../lane-name";
 import type { Summoner } from "./summoner";
 
-export const lockedSummonerLane = (summoner: Summoner): Lane | undefined => {
+export const lockedSummonerLane = (
+  summoner: Summoner,
+): LaneName | undefined => {
   if (summoner.top_priority === "LOCK") {
-    return "TOP";
+    return "top";
   }
   if (summoner.jg_priority === "LOCK") {
-    return "JG";
+    return "jg";
   }
   if (summoner.mid_priority === "LOCK") {
-    return "MID";
+    return "mid";
   }
   if (summoner.bot_priority === "LOCK") {
-    return "BOT";
+    return "bot";
   }
   if (summoner.sup_priority === "LOCK") {
-    return "SUP";
+    return "sup";
   }
   return undefined;
 };

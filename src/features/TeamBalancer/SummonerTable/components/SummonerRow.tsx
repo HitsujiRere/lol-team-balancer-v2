@@ -59,7 +59,7 @@ export const SummonerRow = ({
           <TableCell>
             <LanePriorityToggle
               priority={summoner.top_priority}
-              locked={!!lockedLane && lockedLane !== "TOP"}
+              locked={!!lockedLane && lockedLane !== "top"}
               showDetails={laneSetting === "DETAILED"}
               onChange={(top_priority) =>
                 setSummoner((s) => ({ ...s, top_priority }))
@@ -69,7 +69,7 @@ export const SummonerRow = ({
           <TableCell>
             <LanePriorityToggle
               priority={summoner.jg_priority}
-              locked={!!lockedLane && lockedLane !== "JG"}
+              locked={!!lockedLane && lockedLane !== "jg"}
               showDetails={laneSetting === "DETAILED"}
               onChange={(jg_priority) =>
                 setSummoner((s) => ({ ...s, jg_priority }))
@@ -79,7 +79,7 @@ export const SummonerRow = ({
           <TableCell>
             <LanePriorityToggle
               priority={summoner.mid_priority}
-              locked={!!lockedLane && lockedLane !== "MID"}
+              locked={!!lockedLane && lockedLane !== "mid"}
               showDetails={laneSetting === "DETAILED"}
               onChange={(mid_priority) =>
                 setSummoner((s) => ({ ...s, mid_priority }))
@@ -89,7 +89,7 @@ export const SummonerRow = ({
           <TableCell>
             <LanePriorityToggle
               priority={summoner.bot_priority}
-              locked={!!lockedLane && lockedLane !== "BOT"}
+              locked={!!lockedLane && lockedLane !== "bot"}
               showDetails={laneSetting === "DETAILED"}
               onChange={(bot_priority) =>
                 setSummoner((s) => ({ ...s, bot_priority }))
@@ -99,7 +99,7 @@ export const SummonerRow = ({
           <TableCell>
             <LanePriorityToggle
               priority={summoner.sup_priority}
-              locked={!!lockedLane && lockedLane !== "SUP"}
+              locked={!!lockedLane && lockedLane !== "sup"}
               showDetails={laneSetting === "DETAILED"}
               onChange={(sup_priority) =>
                 setSummoner((s) => ({ ...s, sup_priority }))
