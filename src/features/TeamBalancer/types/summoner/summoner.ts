@@ -2,7 +2,7 @@ import type { Rank } from "@/types/rank";
 import type { RiotId } from "@/types/riot-id";
 import type { FetchStatus } from "../fetch-status";
 import type { Priority } from "../priority";
-import type { Team } from "../team";
+import type { TeamName } from "../team-name";
 
 export type Summoner = {
   name: string;
@@ -15,7 +15,7 @@ export type Summoner = {
   bot_priority: Priority;
   sup_priority: Priority;
   is_mute: boolean;
-  fixed_team?: Team;
+  fixed_team?: TeamName;
   fetch_status: FetchStatus;
   icon_id?: number;
   rank_wins?: number;

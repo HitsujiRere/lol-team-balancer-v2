@@ -1,15 +1,15 @@
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import type { Team } from "../../types/team";
+import type { TeamName } from "../../types/team-name";
 
 export const TeamToggle = ({
   team,
   onChange,
 }: {
-  team?: Team;
-  onChange: (team: Team | undefined) => void;
+  team?: TeamName;
+  onChange: (team: TeamName | undefined) => void;
 }) => {
   const handleChange = (value: string) => {
-    onChange(value === "" ? undefined : (value as Team));
+    onChange(value === "" ? undefined : (value as TeamName));
   };
 
   return (
