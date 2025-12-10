@@ -47,7 +47,7 @@ export const HeaderRow = ({ laneSetting }: { laneSetting: LaneSetting }) => {
         </>
       )}
       <TableHead>聞き専</TableHead>
-      <TableHead>ポジション固定</TableHead>
+      <TableHead>チーム固定</TableHead>
     </TableRow>
   );
 };

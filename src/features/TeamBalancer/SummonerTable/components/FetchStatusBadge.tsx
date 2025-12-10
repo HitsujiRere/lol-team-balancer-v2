@@ -9,13 +9,18 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { cn } from "@/lib/utils";
 import type { FetchStatus } from "../../types/fetch-status";
 
 export const FetchStatusBadge = ({ status }: { status: FetchStatus }) => {
   return (
     <Tooltip>
-      <TooltipTrigger className="grid size-6 place-items-center" asChild>
-        <div>
+      <TooltipTrigger asChild>
+        <div
+          className={cn("grid size-6 place-items-center", {
+            "pointer-events-none": status === "IDLE",
+          })}
+        >
           {status === "LOADING" ? (
             <SearchIcon className="size-4 animate-bounce stroke-blue-600" />
           ) : status === "SUCCESS" ? (

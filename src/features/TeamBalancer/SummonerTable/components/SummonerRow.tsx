@@ -2,6 +2,7 @@ import { useAtom } from "jotai/react";
 import { MicIcon, MicOffIcon } from "lucide-react";
 import { LevelInput } from "@/components/LevelInput";
 import { RankSelect } from "@/components/RankSelect";
+import { SummonerName } from "@/components/SummonerName";
 import { Checkbox } from "@/components/ui/checkbox";
 import { TableCell, TableRow } from "@/components/ui/table";
 import { Toggle } from "@/components/ui/toggle";
@@ -31,7 +32,13 @@ export const SummonerRow = ({
       <TableCell>
         <Checkbox checked={isSelected} onCheckedChange={setIsSelected} />
       </TableCell>
-      <TableCell>{summoner.name}</TableCell>
+      <TableCell>
+        <SummonerName
+          name={name}
+          riotId={summoner.riot_id}
+          iconId={summoner.icon_id}
+        />
+      </TableCell>
       <TableCell>
         <FetchStatusBadge status={summoner.fetch_status} />
       </TableCell>
