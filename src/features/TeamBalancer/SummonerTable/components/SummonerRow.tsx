@@ -12,7 +12,7 @@ import { lockedSummonerLane } from "../../types/summoner";
 import { FetchStatusBadge } from "./FetchStatusBadge";
 import { LanePriorityToggle } from "./LanePriorityToggle";
 import type { LaneSetting } from "./LaneSettingToggle";
-import { TeamSelect } from "./TeamSelect";
+import { TeamToggle } from "./TeamToggle";
 
 export const SummonerRow = ({
   name,
@@ -120,7 +120,7 @@ export const SummonerRow = ({
         </Toggle>
       </TableCell>
       <TableCell>
-        <TeamSelect
+        <TeamToggle
           team={summoner.fixed_team}
           onChange={(fixed_team) => setSummoner((s) => ({ ...s, fixed_team }))}
         />

@@ -1,7 +1,7 @@
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import type { Team } from "../../types/team";
 
-export const TeamSelect = ({
+export const TeamToggle = ({
   team,
   onChange,
 }: {
@@ -16,7 +16,7 @@ export const TeamSelect = ({
     <ToggleGroup
       type="single"
       variant="outline"
-      value={team}
+      value={team ?? ""}
       onValueChange={handleChange}
     >
       <ToggleGroupItem
