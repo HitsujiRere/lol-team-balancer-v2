@@ -8,7 +8,8 @@ const zenKakuGothicNew = Zen_Kaku_Gothic_New({
 
 export const metadata: Metadata = {
   title: "LoLチーム調整くん",
-  description: "LoLのカスタムゲームのチームを良い感じに分けてくれます。",
+  description:
+    "League of Legendsのカスタムゲームのチームを良い感じに分けてくれます。",
 };
 
 export default function RootLayout({

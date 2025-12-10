@@ -54,7 +54,6 @@ export const SummonerRow = ({
           onChange={(rank) => setSummoner((s) => ({ ...s, rank }))}
         />
       </TableCell>
-
       {laneSetting !== "HIDDEN" && (
         <>
           <TableCell>
@@ -109,7 +108,6 @@ export const SummonerRow = ({
           </TableCell>
         </>
       )}
-
       <TableCell>
         <Toggle
           className="group relative"
