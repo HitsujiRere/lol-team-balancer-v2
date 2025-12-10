@@ -4,9 +4,11 @@ import { InputGroup, InputGroupAddon } from "../ui/input-group";
 
 export const LevelInput = ({
   level,
+  disabled,
   onChange,
 }: {
   level: number;
+  disabled?: boolean;
   onChange: (level: number) => void;
 }) => {
   const encode = (value: number) => (value === 0 ? "" : `${value}`);
@@ -22,6 +24,7 @@ export const LevelInput = ({
       <InputGroupNumberInput
         className="w-12"
         value={level}
+        disabled={disabled}
         onValueChange={onChange}
         encode={encode}
         decode={decode}

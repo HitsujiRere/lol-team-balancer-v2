@@ -1,11 +1,10 @@
 import { useAtom } from "jotai/react";
-import { MicIcon, MicOffIcon } from "lucide-react";
 import { LevelInput } from "@/components/LevelInput";
+import { MuteToggle } from "@/components/MuteToggle";
 import { RankSelect } from "@/components/RankSelect";
 import { SummonerName } from "@/components/SummonerName";
 import { Checkbox } from "@/components/ui/checkbox";
 import { TableCell, TableRow } from "@/components/ui/table";
-import { Toggle } from "@/components/ui/toggle";
 import { selectionFamily } from "../../stores/selection";
 import { summonerFamily } from "../../stores/summoner";
 import { lockedSummonerLane } from "../../types/summoner";
@@ -109,13 +108,10 @@ export const SummonerRow = ({
         </>
       )}
       <TableCell>
-        <Toggle
-          className="group relative"
-          onPressedChange={(is_mute) => setSummoner((s) => ({ ...s, is_mute }))}
-        >
-          <MicIcon className="transition-opacity group-data-[state=on]:opacity-0" />
-          <MicOffIcon className="absolute transition-opacity group-data-[state=off]:opacity-0" />
-        </Toggle>
+        <MuteToggle
+          isMute={summoner.is_mute}
+          onChange={(is_mute) => setSummoner((s) => ({ ...s, is_mute }))}
+        />
       </TableCell>
       <TableCell>
         <TeamToggle

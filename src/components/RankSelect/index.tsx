@@ -14,9 +14,11 @@ import { classNameEachRank } from "./utils/classname-each-rank";
 
 export const RankSelect = ({
   rank,
+  disabled,
   onChange,
 }: {
   rank: Rank;
+  disabled?: boolean;
   onChange: (rank: Rank) => void;
 }) => {
   return (
@@ -24,6 +26,7 @@ export const RankSelect = ({
       <NativeSelect
         value={rank}
         className={cn(classNameEachRank(rank), "w-34 rounded-r-none")}
+        disabled={disabled}
         onChange={(event) => onChange(event.target.value as Rank)}
       >
         {RANKS.map((optionRank) => (
@@ -37,7 +40,12 @@ export const RankSelect = ({
         ))}
       </NativeSelect>
       <InputGroup>
-        <InputGroupInput readOnly value={rankToPoint(rank)} className="w-10" />
+        <InputGroupInput
+          value={rankToPoint(rank)}
+          className="w-10"
+          readOnly
+          disabled={disabled}
+        />
         <InputGroupAddon align="inline-end">pt</InputGroupAddon>
       </InputGroup>
     </ButtonGroup>
