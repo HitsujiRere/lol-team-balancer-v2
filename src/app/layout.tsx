@@ -3,7 +3,7 @@ import { Zen_Kaku_Gothic_New } from "next/font/google";
 import "./globals.css";
 
 const zenKakuGothicNew = Zen_Kaku_Gothic_New({
-  weight: ["500", "700"],
+  weight: ["500"],
 });
 
 export const metadata: Metadata = {

@@ -44,8 +44,8 @@ export const RankSelect = ({
       <InputGroup>
         <InputGroupNumberInput
           value={point}
-          className="no-number-spin w-10"
-          readOnly
+          className="no-number-spin w-10 text-right"
+          // readOnly
           disabled={disabled}
           onValueChange={(point) => onChange(rank, point)}
         />

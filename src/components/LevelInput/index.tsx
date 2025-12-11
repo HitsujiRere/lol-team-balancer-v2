@@ -23,7 +23,7 @@ export const LevelInput = ({
     <InputGroup className="w-20">
       <InputGroupAddon align="inline-start">Lv.</InputGroupAddon>
       <InputGroupNumberInput
-        className="no-number-spin"
+        className="no-number-spin text-right"
         value={level}
         disabled={disabled}
         onValueChange={onChange}
