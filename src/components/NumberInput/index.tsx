@@ -1,4 +1,4 @@
-import type { Result } from "neverthrow";
+import { err, ok, type Result } from "neverthrow";
 import { type ChangeEvent, useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
@@ -9,15 +9,21 @@ type NumberInputProps = Omit<
 > & {
   value: number;
   onValueChange: (value: number) => void;
-  encode: (value: number) => string;
-  decode: (value: string) => Result<number, void>;
+  encode?: (value: number) => string;
+  decode?: (value: string) => Result<number, void>;
+};
+
+export const defaultEncode = (value: number) => `${value}`;
+export const defaultDecode = (value: string) => {
+  const parsed = Number(value);
+  return !Number.isNaN(parsed) ? ok(parsed) : err();
 };
 
 export const NumberInput = ({
   value,
   onValueChange,
-  encode,
-  decode,
+  encode = defaultEncode,
+  decode = defaultDecode,
   ...props
 }: NumberInputProps) => {
   const [dirty, setDirty] = useState(encode(value));

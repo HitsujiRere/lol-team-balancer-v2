@@ -50,7 +50,10 @@ export const SummonerRow = ({
       <TableCell>
         <RankSelect
           rank={summoner.rank}
-          onChange={(rank) => setSummoner((s) => ({ ...s, rank }))}
+          point={summoner.rank_point}
+          onChange={(rank, rank_point) =>
+            setSummoner((s) => ({ ...s, rank, rank_point }))
+          }
         />
       </TableCell>
       {laneSetting !== "HIDDEN" && (

@@ -2,6 +2,7 @@ import { hc } from "hono/client";
 import { useAtomCallback } from "jotai/utils";
 import { useCallback } from "react";
 import type { AppType } from "@/server/hono";
+import { rankToPoint } from "@/types/rank";
 import { roomAtom } from "../../stores/room";
 import { summonerFamily, summonersAtom } from "../../stores/summoner";
 
@@ -38,6 +39,7 @@ export const useFetchSummoners = () =>
               level: info.summoner_level,
               icon_id: info.profile_iconId,
               rank: info.solo_ranked_rank,
+              rank_point: rankToPoint(info.solo_ranked_rank),
               rank_wins: info.solo_ranked_wins,
               rank_losses: info.solo_ranked_losses,
             }));

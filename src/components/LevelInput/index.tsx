@@ -1,5 +1,9 @@
-import { err, ok } from "neverthrow";
-import { InputGroupNumberInput } from "../NumberInput";
+import { ok } from "neverthrow";
+import {
+  defaultDecode,
+  defaultEncode,
+  InputGroupNumberInput,
+} from "../NumberInput";
 import { InputGroup, InputGroupAddon } from "../ui/input-group";
 
 export const LevelInput = ({
@@ -11,18 +15,15 @@ export const LevelInput = ({
   disabled?: boolean;
   onChange: (level: number) => void;
 }) => {
-  const encode = (value: number) => (value === 0 ? "" : `${value}`);
-  const decode = (value: string) => {
-    if (value === "") return ok(0);
-    const parsed = Number(value);
-    return !Number.isNaN(parsed) ? ok(parsed) : err();
-  };
+  const encode = (value: number) => (value === 0 ? "" : defaultEncode(value));
+  const decode = (value: string) =>
+    value === "" ? ok(0) : defaultDecode(value);
 
   return (
-    <InputGroup>
+    <InputGroup className="w-20">
       <InputGroupAddon align="inline-start">Lv.</InputGroupAddon>
       <InputGroupNumberInput
-        className="w-12"
+        className="no-number-spin"
         value={level}
         disabled={disabled}
         onValueChange={onChange}

@@ -3,6 +3,10 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@utility no-number-spin {
+  @apply [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none;
+}
+
 @theme {
   --color-brown-50: #efebe9;
   --color-brown-100: #d7ccc8;

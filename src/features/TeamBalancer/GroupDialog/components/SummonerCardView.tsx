@@ -34,7 +34,7 @@ export const SummonerCardView = ({
   return (
     <div
       className={cn(
-        "flex flex-col justify-center gap-2 rounded-md border-2 bg-primary-foreground p-2",
+        "flex flex-col justify-center gap-2 rounded-md border-2 bg-background p-2",
         {
           "border-blue-400": team === "blue",
           "border-red-400": team === "red",
@@ -53,6 +53,7 @@ export const SummonerCardView = ({
           <GripIcon />
         </Button>
         <SummonerName
+          className="flex-1"
           name={enabled ? name : "?"}
           riotId={summoner.riot_id}
           iconId={summoner.icon_id}
@@ -69,7 +70,10 @@ export const SummonerCardView = ({
         />
         <RankSelect
           rank={summoner.rank}
-          onChange={(rank) => setSummoner((s) => ({ ...s, rank }))}
+          point={summoner.rank_point}
+          onChange={(rank, rank_point) =>
+            setSummoner((s) => ({ ...s, rank, rank_point }))
+          }
           disabled={!enabled}
         />
         <MuteToggle

@@ -8,6 +8,7 @@ export const createSummoner = (
   riot_id: init.riot_id,
   level: init.level ?? 0,
   rank: init.rank ?? "UNRANKED",
+  rank_point: init.rank_point ?? 0,
   top_priority: init.top_priority ?? "MEDIUM",
   jg_priority: init.jg_priority ?? "MEDIUM",
   mid_priority: init.mid_priority ?? "MEDIUM",

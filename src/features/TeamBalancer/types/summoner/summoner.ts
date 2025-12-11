@@ -9,6 +9,7 @@ export type Summoner = {
   riot_id?: RiotId;
   level: number;
   rank: Rank;
+  rank_point: number;
   top_priority: Priority;
   jg_priority: Priority;
   mid_priority: Priority;
