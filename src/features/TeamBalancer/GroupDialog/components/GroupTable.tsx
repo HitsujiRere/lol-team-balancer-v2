@@ -10,10 +10,10 @@ import { SortableContext } from "@dnd-kit/sortable";
 import { type Dispatch, type SetStateAction, useId, useState } from "react";
 import { createPortal } from "react-dom";
 import { Flipper } from "react-flip-toolkit";
-import { Button } from "@/components/ui/button";
 import { LANE_NAMES, type LaneName } from "../../types/lane-name";
 import { TEAM_NAMES, type TeamName } from "../../types/team-name";
 import type { Group } from "../types/group";
+import { GroupCard } from "./GroupCard";
 import { LaneCard } from "./LaneCard";
 import { SummonerCard } from "./SummonerCard";
 import { SummonerCardView } from "./SummonerCardView";
@@ -76,14 +76,19 @@ export const GroupTable = ({
       <SortableContext items={groupEntries().map(([, , name]) => name)}>
         <Flipper
           flipKey={JSON.stringify(group)}
-          className="grid grid-flow-row-dense grid-cols-[1.5fr_1fr_1.5fr] gap-4"
+          className="grid grid-flow-row-dense grid-cols-[minmax(0,1fr)_12rem_minmax(0,1fr)] gap-4"
         >
-          <TeamCard team="blue" />
-          <div className="flex flex-col items-center gap-2 rounded-md border-2 border-border p-4">
-            <p>平均ランク差：2pt</p>
-            <Button>コピー</Button>
-          </div>
-          <TeamCard team="red" />
+          <TeamCard name="blue" team={group.blue} />
+          <GroupCard group={group} />
+          <TeamCard name="red" team={group.red} />
+          {LANE_NAMES.map((lane) => (
+            <LaneCard
+              key={lane}
+              lane={lane}
+              blueName={group.blue[lane]}
+              redName={group.red[lane]}
+            />
+          ))}
 
           {groupEntries().map(([team, lane, name]) => (
             <SummonerCard
@@ -94,15 +99,10 @@ export const GroupTable = ({
               noFlip={!!activeName}
             />
           ))}
-          <LaneCard lane="top" />
-          <LaneCard lane="jg" />
-          <LaneCard lane="mid" />
-          <LaneCard lane="bot" />
-          <LaneCard lane="sup" />
         </Flipper>
       </SortableContext>
       {
-        // DialogのtransformによりDragOverlayのposition:fixedが正しく機能しないため
+        // DialogのtransformによりDragOverlayのposition:fixedが正しく機能しないためdocument.bodyに描画する
         // issue: dnd-kit#1649
         createPortal(
           <DragOverlay>

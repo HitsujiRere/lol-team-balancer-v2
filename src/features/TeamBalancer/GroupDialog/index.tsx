@@ -1,6 +1,6 @@
 import { useAtomValue } from "jotai/react";
 import { DicesIcon } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -14,8 +14,7 @@ import { shuffled } from "@/utils/shuffled";
 import { selectionAtom } from "../stores/selection";
 import { GroupTable } from "./components/GroupTable";
 import { createGroup, type Group } from "./types/group";
-
-type Parameter = "level" | "rank";
+import type { Parameter } from "./types/parameter";
 
 export const GroupDialog = ({
   open,
@@ -32,6 +31,10 @@ export const GroupDialog = ({
     .toArray();
 
   const [group, setGroup] = useState<Group>(createGroup());
+  useEffect(() => {
+    setGroup(createGroup());
+    console.log({ activeNames });
+  }, [activeNames]);
   const [parameter, setParameter] = useState<Parameter>("rank");
   const [topPercentage, setTopPercentage] = useState(25);
 
@@ -40,19 +43,21 @@ export const GroupDialog = ({
 
     const names = shuffled(activeNames);
     setGroup({
+      // biome-ignore-start lint/style/noNonNullAssertion: namesのサイズはちょうど10
       blue: {
-        top: names[0],
-        jg: names[1],
-        mid: names[2],
-        bot: names[3],
-        sup: names[4],
+        top: names[0]!,
+        jg: names[1]!,
+        mid: names[2]!,
+        bot: names[3]!,
+        sup: names[4]!,
       },
       red: {
-        top: names[5],
-        jg: names[6],
-        mid: names[7],
-        bot: names[8],
-        sup: names[9],
+        top: names[5]!,
+        jg: names[6]!,
+        mid: names[7]!,
+        bot: names[8]!,
+        sup: names[9]!,
+        // biome-ignore-end lint/style/noNonNullAssertion: namesのサイズはちょうど10
       },
     });
   };
