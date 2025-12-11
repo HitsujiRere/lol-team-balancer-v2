@@ -2,7 +2,7 @@ import { useAtom } from "jotai/react";
 import { LevelInput } from "@/components/LevelInput";
 import { MuteToggle } from "@/components/MuteToggle";
 import { RankSelect } from "@/components/RankSelect";
-import { SummonerName } from "@/components/SummonerName";
+import { SummonerAvatar } from "@/components/SummonerAvatar";
 import { Checkbox } from "@/components/ui/checkbox";
 import { TableCell, TableRow } from "@/components/ui/table";
 import { selectionFamily } from "../../stores/selection";
@@ -32,7 +32,7 @@ export const SummonerRow = ({
         <Checkbox checked={isSelected} onCheckedChange={setIsSelected} />
       </TableCell>
       <TableCell>
-        <SummonerName
+        <SummonerAvatar
           name={name}
           riotId={summoner.riot_id}
           iconId={summoner.icon_id}

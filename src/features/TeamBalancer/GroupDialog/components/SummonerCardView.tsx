@@ -7,7 +7,7 @@ import { GripIcon, PinIcon } from "lucide-react";
 import { LevelInput } from "@/components/LevelInput";
 import { MuteToggle } from "@/components/MuteToggle";
 import { RankSelect } from "@/components/RankSelect";
-import { SummonerName } from "@/components/SummonerName";
+import { SummonerAvatar } from "@/components/SummonerAvatar";
 import { Button } from "@/components/ui/button";
 import { Toggle } from "@/components/ui/toggle";
 import { cn } from "@/lib/utils";
@@ -52,7 +52,7 @@ export const SummonerCardView = ({
         >
           <GripIcon />
         </Button>
-        <SummonerName
+        <SummonerAvatar
           className="flex-1"
           name={enabled ? name : "?"}
           riotId={summoner.riot_id}
