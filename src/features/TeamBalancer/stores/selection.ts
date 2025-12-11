@@ -1,5 +1,5 @@
-import { atomFamily } from "jotai/utils";
 import { atom } from "jotai/vanilla";
+import { atomFamily } from "jotai-family";
 
 export const selectionAtom = atom<Map<string, boolean>>(new Map());
 export const selectionFamily = atomFamily((name: string) =>

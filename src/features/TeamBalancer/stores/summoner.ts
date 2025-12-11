@@ -1,5 +1,5 @@
-import { atomFamily } from "jotai/utils";
 import { atom } from "jotai/vanilla";
+import { atomFamily } from "jotai-family";
 import { createSummoner, type Summoner } from "../types/summoner";
 
 export const summonersAtom = atom<Map<string, Summoner>>(new Map());
