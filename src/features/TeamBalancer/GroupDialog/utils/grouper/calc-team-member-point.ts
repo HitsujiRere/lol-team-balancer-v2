@@ -1,7 +1,7 @@
 import type { Summoner } from "../../../types/summoner";
 import type { TeamName } from "../../../types/team-name";
 
-export const calcTeamPoint = (
+export const calcTeamMemberPoint = (
   team: TeamName,
   names: string[],
   summoners: Map<string, Summoner>,

@@ -3,7 +3,7 @@ import { lockedSummonerLane, type Summoner } from "../../../types/summoner";
 import { TEAM_NAMES } from "../../../types/team-name";
 import type { PartialGroup } from "../../types/group";
 
-export const calcGroupPoint = (
+export const calcLanePoint = (
   group: PartialGroup,
   summoners: Map<string, Summoner>,
 ): number => {

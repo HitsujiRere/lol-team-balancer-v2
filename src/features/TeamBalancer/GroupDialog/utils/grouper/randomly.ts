@@ -2,8 +2,8 @@ import { err, ok } from "neverthrow";
 import { shuffled } from "@/utils/shuffled";
 import type { Grouper } from "../../types/group";
 import { createTeamFromArray } from "../../types/team";
-import { calcGroupPoint } from "./calc-group-point";
-import { calcTeamPoint } from "./calc-team-point";
+import { calcLanePoint } from "./calc-lane-point";
+import { calcTeamMemberPoint } from "./calc-team-member-point";
 import { combinations } from "./combinations";
 import { permutations } from "./permutations";
 
@@ -15,8 +15,8 @@ export const groupRandomly: Grouper = (names, summoners) => {
       names.filter((name) => !blue.includes(name)),
     ])
     .filter(([blue, red]) => {
-      const bluePoint = calcTeamPoint("blue", blue, summoners);
-      const redPoint = calcTeamPoint("red", red, summoners);
+      const bluePoint = calcTeamMemberPoint("blue", blue, summoners);
+      const redPoint = calcTeamMemberPoint("red", red, summoners);
       return bluePoint >= 0 && redPoint >= 0;
     });
 
@@ -26,7 +26,7 @@ export const groupRandomly: Grouper = (names, summoners) => {
         .map((blue) => {
           const team = createTeamFromArray(blue);
           if (team === undefined) return undefined;
-          const point = calcGroupPoint({ blue: team }, summoners);
+          const point = calcLanePoint({ blue: team }, summoners);
           return point >= 0 ? team : undefined;
         })
         .find((team) => team !== undefined);
@@ -34,7 +34,7 @@ export const groupRandomly: Grouper = (names, summoners) => {
         .map((red) => {
           const team = createTeamFromArray(red);
           if (team === undefined) return undefined;
-          const point = calcGroupPoint({ red: team }, summoners);
+          const point = calcLanePoint({ red: team }, summoners);
           return point >= 0 ? team : undefined;
         })
         .find((team) => team !== undefined);
