@@ -1,6 +1,6 @@
 import { useAtomValue } from "jotai/react";
 import { useAtomCallback } from "jotai/utils";
-import { DicesIcon } from "lucide-react";
+import { DicesIcon, LoaderCircleIcon } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
@@ -38,16 +38,20 @@ export const GroupDialog = ({
     setGroup(createGroup());
     console.log({ activeNames });
   }, [activeNames]);
+
+  const [isGrouping, setIsGrouping] = useState(false);
   const [parameter, setParameter] = useState<Parameter>("rank");
   const [topPercentage, setTopPercentage] = useState(25);
 
   const handleGroup = useAtomCallback(
     useCallback(
-      (get, _set, grouper: Grouper) => () => {
+      (get, _set, grouper: Grouper) => async () => {
+        setIsGrouping(true);
         if (activeNames.length !== 10) return;
         const summoners = get(summonersAtom);
-        const group = grouper(activeNames, summoners);
+        const group = await grouper(activeNames, summoners);
         setGroup(createGroup(group.unwrapOr(undefined)));
+        setIsGrouping(false);
       },
       [activeNames],
     ),
@@ -62,8 +66,12 @@ export const GroupDialog = ({
 
         <div>
           <div className="mb-4 flex gap-4">
-            <Button onClick={handleGroup(groupRandomly)}>
-              <DicesIcon />
+            <Button disabled={isGrouping} onClick={handleGroup(groupRandomly)}>
+              {isGrouping ? (
+                <LoaderCircleIcon className="animate-spin" />
+              ) : (
+                <DicesIcon />
+              )}
               チーム分け
             </Button>
 

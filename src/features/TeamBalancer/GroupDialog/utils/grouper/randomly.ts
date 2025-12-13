@@ -1,4 +1,4 @@
-import { err, ok } from "neverthrow";
+import { err, ok, ResultAsync } from "neverthrow";
 import { shuffled } from "@/utils/shuffled";
 import type { Grouper } from "../../types/group";
 import { createTeamFromArray } from "../../types/team";
@@ -20,37 +20,38 @@ export const groupRandomly: Grouper = (names, summoners) => {
       return bluePoint >= 0 && redPoint >= 0;
     });
 
-  const goodGroup = goodNames
-    .map(([blue, red]) => {
-      const blueTeam = permutations(blue)
-        .map((blue) => {
-          const team = createTeamFromArray(blue);
-          if (team === undefined) return undefined;
-          const point = calcLanePoint({ blue: team }, summoners);
-          return point >= 0 ? team : undefined;
-        })
-        .find((team) => team !== undefined);
-      const redTeam = permutations(red)
-        .map((red) => {
-          const team = createTeamFromArray(red);
-          if (team === undefined) return undefined;
-          const point = calcLanePoint({ red: team }, summoners);
-          return point >= 0 ? team : undefined;
-        })
-        .find((team) => team !== undefined);
-      if (blueTeam && redTeam) {
-        return {
-          blue: blueTeam,
-          red: redTeam,
-        };
-      }
-      return undefined;
-    })
-    .find((res) => res !== undefined);
+  const groupPromises = goodNames.map(async ([blue, red]) => {
+    const blueTeam = shuffled(permutations(blue))
+      .map((blue) => {
+        const team = createTeamFromArray(blue);
+        if (team === undefined) return undefined;
+        const point = calcLanePoint({ blue: team }, summoners);
+        return point >= 0 ? team : undefined;
+      })
+      .find((team) => team !== undefined);
+    const redTeam = shuffled(permutations(red))
+      .map((red) => {
+        const team = createTeamFromArray(red);
+        if (team === undefined) return undefined;
+        const point = calcLanePoint({ red: team }, summoners);
+        return point >= 0 ? team : undefined;
+      })
+      .find((team) => team !== undefined);
+    if (blueTeam && redTeam) {
+      return {
+        blue: blueTeam,
+        red: redTeam,
+      };
+    }
+    return undefined;
+  });
 
-  if (goodGroup === undefined) {
-    return err();
-  }
+  const goodGroup = ResultAsync.fromSafePromise(
+    Promise.all(groupPromises),
+  ).andThen((x) => {
+    const group = x.find((res) => res !== undefined);
+    return group ? ok(group) : err();
+  });
 
-  return ok(goodGroup);
+  return goodGroup;
 };

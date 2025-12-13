@@ -25,7 +25,7 @@ export const useFetchSummoners = () =>
         return newv;
       });
 
-      await Promise.all(
+      return Promise.all(
         fetchingNames.map(async (name) => {
           const encoded = encodeURIComponent(name);
           const data = await client.api.summoner[":id"].$get({
