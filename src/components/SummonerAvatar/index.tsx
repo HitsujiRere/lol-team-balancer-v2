@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import { type RiotId, toOpggLink } from "@/types/riot-id";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
@@ -7,11 +8,13 @@ export const SummonerAvatar = ({
   name,
   riotId,
   iconId,
+  fallback,
   className,
 }: {
   name: string;
   riotId?: RiotId;
   iconId?: number;
+  fallback?: ReactNode;
   className?: string;
 }) => {
   return (
@@ -23,7 +26,7 @@ export const SummonerAvatar = ({
             alt="サモナーアイコン"
           />
         )}
-        <AvatarFallback />
+        <AvatarFallback>{fallback}</AvatarFallback>
       </Avatar>
       {riotId ? (
         <Button variant="link" className="min-w-0 shrink pl-2" asChild>

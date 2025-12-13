@@ -40,7 +40,6 @@ export const HeaderRow = ({ laneSetting }: { laneSetting: LaneSetting }) => {
         />
       </TableHead>
       <TableHead>名前</TableHead>
-      <TableHead className="w-8" />
       <TableHead>レベル</TableHead>
       <TableHead>ランク/ポイント</TableHead>
       {laneSetting !== "HIDDEN" && (

@@ -36,10 +36,8 @@ export const SummonerRow = ({
           name={name}
           riotId={summoner.riot_id}
           iconId={summoner.icon_id}
+          fallback={<FetchStatusBadge status={summoner.fetch_status} />}
         />
-      </TableCell>
-      <TableCell>
-        <FetchStatusBadge status={summoner.fetch_status} />
       </TableCell>
       <TableCell>
         <LevelInput
