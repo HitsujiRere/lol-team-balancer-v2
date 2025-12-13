@@ -1,7 +1,7 @@
 "use client";
 
 import { useAtom } from "jotai/react";
-import { BugIcon } from "lucide-react";
+import { WrenchIcon } from "lucide-react";
 import { Toggle } from "@/components/ui/toggle";
 import { debugModeAtom } from "@/stores/debug-mode";
 
@@ -11,7 +11,7 @@ export const Settings = () => {
   return (
     <div>
       <Toggle pressed={debugMode} onPressedChange={setDebugMode}>
-        <BugIcon />
+        <WrenchIcon />
       </Toggle>
     </div>
   );

@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/dialog";
 import { SingleSlider } from "@/components/ui/slider";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import { debugModeAtom } from "@/stores/debug-mode";
 import { selectionAtom } from "../stores/selection";
 import { summonersAtom } from "../stores/summoner";
 import { GroupTable } from "./components/GroupTable";
@@ -26,6 +27,8 @@ export const GroupDialog = ({
   open: boolean;
   onOpenChange: (open: boolean) => void;
 }) => {
+  const debugMode = useAtomValue(debugModeAtom);
+
   const selection = useAtomValue(selectionAtom);
   const activeNames = selection
     .entries()
@@ -104,6 +107,16 @@ export const GroupDialog = ({
                 onValueChange={(value) => setTopPercentage(value)}
               />
             </div>
+
+            {debugMode && (
+              <Button
+                variant="destructive"
+                disabled={isGrouping}
+                onClick={handleGroup(groupRandomly)}
+              >
+                ランダムチーム分け
+              </Button>
+            )}
           </div>
 
           {activeNames.length === 10 ? (
