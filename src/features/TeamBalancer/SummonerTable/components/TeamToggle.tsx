@@ -20,13 +20,13 @@ export const TeamToggle = ({
       onValueChange={handleChange}
     >
       <ToggleGroupItem
-        value="Blue"
+        value={"blue" satisfies TeamName}
         className="text-blue-700! data-[state=on]:bg-blue-200"
       >
         Blue
       </ToggleGroupItem>
       <ToggleGroupItem
-        value="Red"
+        value={"red" satisfies TeamName}
         className="text-red-700! data-[state=on]:bg-red-200"
       >
         Red

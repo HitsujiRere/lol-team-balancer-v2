@@ -1,6 +1,7 @@
 import { useAtomValue } from "jotai/react";
+import { useAtomCallback } from "jotai/utils";
 import { DicesIcon } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -10,11 +11,13 @@ import {
 } from "@/components/ui/dialog";
 import { SingleSlider } from "@/components/ui/slider";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import { shuffled } from "@/utils/shuffled";
 import { selectionAtom } from "../stores/selection";
+import { summonersAtom } from "../stores/summoner";
 import { GroupTable } from "./components/GroupTable";
+import type { Grouper } from "./types/group";
 import { createGroup, type Group } from "./types/group";
 import type { Parameter } from "./types/parameter";
+import { groupRandomly } from "./utils/grouper/randomly";
 
 export const GroupDialog = ({
   open,
@@ -38,29 +41,17 @@ export const GroupDialog = ({
   const [parameter, setParameter] = useState<Parameter>("rank");
   const [topPercentage, setTopPercentage] = useState(25);
 
-  const handleGroup = () => {
-    if (activeNames.length !== 10) return;
-
-    const names = shuffled(activeNames);
-    setGroup({
-      // biome-ignore-start lint/style/noNonNullAssertion: namesのサイズはちょうど10
-      blue: {
-        top: names[0]!,
-        jg: names[1]!,
-        mid: names[2]!,
-        bot: names[3]!,
-        sup: names[4]!,
+  const handleGroup = useAtomCallback(
+    useCallback(
+      (get, _set, grouper: Grouper) => () => {
+        if (activeNames.length !== 10) return;
+        const summoners = get(summonersAtom);
+        const group = grouper(activeNames, summoners);
+        setGroup(createGroup(group.unwrapOr(undefined)));
       },
-      red: {
-        top: names[5]!,
-        jg: names[6]!,
-        mid: names[7]!,
-        bot: names[8]!,
-        sup: names[9]!,
-        // biome-ignore-end lint/style/noNonNullAssertion: namesのサイズはちょうど10
-      },
-    });
-  };
+      [activeNames],
+    ),
+  );
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -71,7 +62,7 @@ export const GroupDialog = ({
 
         <div>
           <div className="mb-4 flex gap-4">
-            <Button onClick={handleGroup}>
+            <Button onClick={handleGroup(groupRandomly)}>
               <DicesIcon />
               チーム分け
             </Button>

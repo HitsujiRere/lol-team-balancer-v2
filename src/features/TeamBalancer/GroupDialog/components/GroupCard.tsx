@@ -9,11 +9,11 @@ import { sumLevel } from "../utils/sum-level";
 
 export const GroupCard = ({ group }: { group: Group }) => {
   const summoners = useAtomValue(summonersAtom).values().toArray();
-  const blueSummoners = summoners.filter((summoner) =>
-    LANE_NAMES.some((lane) => group.blue[lane] === summoner.name),
+  const blueSummoners = summoners.filter(({ name }) =>
+    LANE_NAMES.some((lane) => group.blue[lane] === name),
   );
-  const redSummoners = summoners.filter((summoner) =>
-    LANE_NAMES.some((lane) => group.red[lane] === summoner.name),
+  const redSummoners = summoners.filter(({ name }) =>
+    LANE_NAMES.some((lane) => group.red[lane] === name),
   );
 
   const handleCopy = () => {

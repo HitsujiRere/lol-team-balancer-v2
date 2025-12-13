@@ -12,9 +12,7 @@ export const TeamCard = ({ name, team }: { name: TeamName; team: Team }) => {
   // TODO: 関係のないサモナーの更新を無視するように
   const summoners = useAtomValue(summonersAtom)
     .values()
-    .filter((summoner) =>
-      LANE_NAMES.some((lane) => team[lane] === summoner.name),
-    )
+    .filter(({ name }) => LANE_NAMES.some((lane) => team[lane] === name))
     .toArray();
 
   const handleCopy = () => {
