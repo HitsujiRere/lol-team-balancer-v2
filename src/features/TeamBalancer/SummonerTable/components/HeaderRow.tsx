@@ -9,6 +9,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { selectionAtom } from "../../stores/selection";
+import { HeaderOpggLink } from "./HeaderOpggLink";
 import type { LaneSetting } from "./LaneSettingToggle";
 
 export const HeaderRow = ({ laneSetting }: { laneSetting: LaneSetting }) => {
@@ -39,7 +40,12 @@ export const HeaderRow = ({ laneSetting }: { laneSetting: LaneSetting }) => {
           onCheckedChange={handleSelectedAllChange}
         />
       </TableHead>
-      <TableHead>名前</TableHead>
+      <TableHead>
+        <div className="flex items-center gap-4">
+          <div>名前</div>
+          <HeaderOpggLink />
+        </div>
+      </TableHead>
       <TableHead>レベル</TableHead>
       <TableHead>ランク/ポイント</TableHead>
       {laneSetting !== "HIDDEN" && (
