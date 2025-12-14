@@ -20,7 +20,7 @@ export const GroupCard = ({ group }: { group: Group }) => {
     navigator.clipboard.writeText(
       TEAM_NAMES.map((team) => {
         const riotIds = (team === "blue" ? blueSummoners : redSummoners)
-          .map((summoner) => summoner.riot_id)
+          .map(({ riot_id }) => riot_id)
           .filter((id) => id !== undefined);
         return `=== ${team === "blue" ? "Blue" : "Red"} ===
 ${LANE_NAMES.map((lane) => `${lane.toUpperCase()}: ${group[team][lane]}`).join("\n")}

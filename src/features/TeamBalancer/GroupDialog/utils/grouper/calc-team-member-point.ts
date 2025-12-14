@@ -10,9 +10,6 @@ export const calcTeamMemberPoint = (
   names.forEach((name) => {
     const summoner = summoners.get(name);
     if (summoner !== undefined) {
-      if (summoner.fixed_team !== undefined) {
-        console.log(name, summoner.fixed_team);
-      }
       if (summoner.fixed_team !== undefined && summoner.fixed_team !== team) {
         point -= 1000;
       }

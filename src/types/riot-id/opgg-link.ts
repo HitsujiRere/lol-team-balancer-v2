@@ -8,7 +8,7 @@ export const toOpggMultisearchLink = (riotIds: RiotId[]) => {
   const param = riotIds
     // 最大10件まで対応
     .slice(0, 10)
-    .map((riotId) => `${riotId.gameName}#${riotId.tagLine}`)
+    .map(({ gameName, tagLine }) => `${gameName}#${tagLine}`)
     .join(",");
   return `https://op.gg/ja/lol/multisearch/jp?summoners=${encodeURIComponent(param)}`;
 };

@@ -48,5 +48,5 @@ export const getPuuid = (
         status: 500,
       };
     })
-    .map((res) => res.puuid);
+    .map(({ puuid }) => puuid);
 };

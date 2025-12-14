@@ -17,7 +17,7 @@ export const TeamCard = ({ name, team }: { name: TeamName; team: Team }) => {
 
   const handleCopy = () => {
     const riotIds = summoners
-      .map((summoner) => summoner.riot_id)
+      .map(({ riot_id }) => riot_id)
       .filter((id) => id !== undefined);
     navigator.clipboard.writeText(
       `=== ${name === "blue" ? "Blue" : "Red"} ===
