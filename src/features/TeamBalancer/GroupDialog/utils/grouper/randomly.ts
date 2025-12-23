@@ -11,11 +11,14 @@ import { permutations } from "./permutations";
 export const groupRandomly: Grouper = (names, summoners, option) => {
   // チーム分け
   const goodNames = shuffled(combinations(names, 5))
-    .map<[string[], string[]]>((blue) => [
-      blue,
-      // red-team names
-      names.filter((name) => !blue.includes(name)),
-    ])
+    .map(
+      (blue) =>
+        [
+          blue,
+          // red-team names
+          names.filter((name) => !blue.includes(name)),
+        ] as const,
+    )
     .filter(([blue, red]) => {
       const bluePoint = calcTeamMemberPoint("blue", blue, summoners);
       const redPoint = calcTeamMemberPoint("red", red, summoners);

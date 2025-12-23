@@ -28,11 +28,7 @@ export const GroupTable = ({
 }) => {
   const groupEntries = () =>
     TEAM_NAMES.flatMap((team) =>
-      LANE_NAMES.map<[TeamName, LaneName, string]>((lane) => [
-        team,
-        lane,
-        group[team][lane],
-      ]),
+      LANE_NAMES.map((lane) => [team, lane, group[team][lane]] as const),
     );
 
   const dndId = useId();
