@@ -1,22 +1,19 @@
+import { useAtom } from "jotai";
 import {
   EyeClosedIcon,
   ListChevronsDownUpIcon,
   ListChevronsUpDownIcon,
 } from "lucide-react";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import { laneOptionAtom } from "../../stores/options";
+import type { LaneOption } from "../../types/option";
 
-export type LaneSetting = "HIDDEN" | "SIMPLE" | "DETAILED";
+export const LaneOptionToggle = () => {
+  const [laneOption, setLaneOption] = useAtom(laneOptionAtom);
 
-export const LaneSettingToggle = ({
-  setting,
-  onChange,
-}: {
-  setting: LaneSetting;
-  onChange: (setting: LaneSetting) => void;
-}) => {
   const handleChange = (value: string) => {
     if (value !== "") {
-      onChange(value as LaneSetting);
+      setLaneOption(value as LaneOption);
     }
   };
 
@@ -24,18 +21,18 @@ export const LaneSettingToggle = ({
     <ToggleGroup
       type="single"
       variant="outline"
-      value={setting}
+      value={laneOption}
       onValueChange={handleChange}
     >
-      <ToggleGroupItem value={"HIDDEN" satisfies LaneSetting}>
+      <ToggleGroupItem value={"HIDDEN" satisfies LaneOption}>
         <EyeClosedIcon />
         レーン非表示
       </ToggleGroupItem>
-      <ToggleGroupItem value={"SIMPLE" satisfies LaneSetting}>
+      <ToggleGroupItem value={"SIMPLE" satisfies LaneOption}>
         <ListChevronsDownUpIcon />
         シンプル
       </ToggleGroupItem>
-      <ToggleGroupItem value={"DETAILED" satisfies LaneSetting}>
+      <ToggleGroupItem value={"DETAILED" satisfies LaneOption}>
         <ListChevronsUpDownIcon />
         詳細
       </ToggleGroupItem>

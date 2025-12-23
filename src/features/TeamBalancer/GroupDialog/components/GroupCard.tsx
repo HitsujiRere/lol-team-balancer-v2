@@ -32,7 +32,7 @@ ${toOpggMultisearchLink(riotIds)}`;
   const diff = (sumLevel(blueSummoners) - sumLevel(redSummoners)) / 5;
 
   return (
-    <div className="flex flex-col items-center gap-2 rounded-md border-2 border-border p-4">
+    <div className="col-start-2 flex flex-col items-center gap-2 rounded-md border-2 border-border p-4">
       <div className="flex items-center gap-2">
         <div>平均:</div>
         {diff < 0 && <div>{"<"}</div>}

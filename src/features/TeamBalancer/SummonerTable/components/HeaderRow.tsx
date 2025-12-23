@@ -1,4 +1,4 @@
-import { useAtom } from "jotai/react";
+import { useAtom, useAtomValue } from "jotai/react";
 import { CircleQuestionMarkIcon } from "lucide-react";
 import { useMemo } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -8,12 +8,13 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { laneOptionAtom } from "../../stores/options";
 import { selectionAtom } from "../../stores/selection";
 import { HeaderOpggLink } from "./HeaderOpggLink";
-import type { LaneSetting } from "./LaneSettingToggle";
 
-export const HeaderRow = ({ laneSetting }: { laneSetting: LaneSetting }) => {
+export const HeaderRow = () => {
   const [selection, setSelection] = useAtom(selectionAtom);
+  const laneOption = useAtomValue(laneOptionAtom);
 
   const selectedAll = useMemo(() => {
     if (selection.values().every((select) => !select)) {
@@ -48,7 +49,7 @@ export const HeaderRow = ({ laneSetting }: { laneSetting: LaneSetting }) => {
       </TableHead>
       <TableHead>レベル</TableHead>
       <TableHead>ランク/ポイント</TableHead>
-      {laneSetting !== "HIDDEN" && (
+      {laneOption !== "HIDDEN" && (
         <>
           <TableHead>TOP</TableHead>
           <TableHead>JG</TableHead>

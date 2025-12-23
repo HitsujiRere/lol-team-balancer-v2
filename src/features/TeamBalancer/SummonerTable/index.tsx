@@ -1,6 +1,6 @@
 import { useAtomValue } from "jotai/react";
 import { ScaleIcon, SearchIcon } from "lucide-react";
-import { useDeferredValue, useState } from "react";
+import { useDeferredValue } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Table,
@@ -11,17 +11,12 @@ import {
 } from "@/components/ui/table";
 import { roomAtom } from "../stores/room";
 import { HeaderRow } from "./components/HeaderRow";
-import {
-  type LaneSetting,
-  LaneSettingToggle,
-} from "./components/LaneSettingToggle";
+import { LaneOptionToggle } from "./components/LaneOptionToggle";
 import { SummonerRow } from "./components/SummonerRow";
 import { useFetchSummoners } from "./hooks/use-fetch-summoners";
 
 export const SummonerTable = ({ onGrouping }: { onGrouping: () => void }) => {
   const roomNames = useDeferredValue(useAtomValue(roomAtom), []);
-
-  const [laneSetting, setLaneSetting] = useState<LaneSetting>("SIMPLE");
 
   const fetchSummoners = useFetchSummoners();
 
@@ -36,11 +31,11 @@ export const SummonerTable = ({ onGrouping }: { onGrouping: () => void }) => {
           <SearchIcon />
           サモナー検索
         </Button>
-        <LaneSettingToggle setting={laneSetting} onChange={setLaneSetting} />
+        <LaneOptionToggle />
       </div>
       <Table>
         <TableHeader>
-          <HeaderRow laneSetting={laneSetting} />
+          <HeaderRow />
         </TableHeader>
         <TableBody>
           {roomNames.length === 0 ? (
@@ -50,9 +45,7 @@ export const SummonerTable = ({ onGrouping }: { onGrouping: () => void }) => {
               </TableCell>
             </TableRow>
           ) : (
-            roomNames.map((name) => (
-              <SummonerRow key={name} name={name} laneSetting={laneSetting} />
-            ))
+            roomNames.map((name) => <SummonerRow key={name} name={name} />)
           )}
         </TableBody>
         {/* <TableFooter>

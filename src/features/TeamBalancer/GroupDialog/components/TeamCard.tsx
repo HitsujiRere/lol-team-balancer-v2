@@ -31,8 +31,8 @@ ${toOpggMultisearchLink(riotIds)}`,
   return (
     <div
       className={cn("flex flex-col gap-2 rounded-md border-2 p-4", {
-        "border-blue-400 bg-blue-200": name === "blue",
-        "border-red-400 bg-red-200": name === "red",
+        "col-start-1 border-blue-400 bg-blue-200": name === "blue",
+        "col-start-3 border-red-400 bg-red-200": name === "red",
       })}
     >
       <div className="grid grid-cols-2 place-items-center px-12">

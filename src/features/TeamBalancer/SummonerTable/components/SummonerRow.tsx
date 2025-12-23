@@ -1,28 +1,22 @@
-import { useAtom } from "jotai/react";
+import { useAtom, useAtomValue } from "jotai/react";
 import { LevelInput } from "@/components/LevelInput";
 import { MuteToggle } from "@/components/MuteToggle";
 import { RankSelect } from "@/components/RankSelect";
 import { SummonerAvatar } from "@/components/SummonerAvatar";
 import { Checkbox } from "@/components/ui/checkbox";
 import { TableCell, TableRow } from "@/components/ui/table";
+import { laneOptionAtom } from "../../stores/options";
 import { selectionFamily } from "../../stores/selection";
 import { summonerFamily } from "../../stores/summoner";
 import { lockedSummonerLane } from "../../types/summoner";
 import { FetchStatusBadge } from "./FetchStatusBadge";
 import { LanePriorityToggle } from "./LanePriorityToggle";
-import type { LaneSetting } from "./LaneSettingToggle";
 import { TeamToggle } from "./TeamToggle";
 
-export const SummonerRow = ({
-  name,
-  laneSetting,
-}: {
-  name: string;
-  laneSetting: LaneSetting;
-}) => {
+export const SummonerRow = ({ name }: { name: string }) => {
   const [summoner, setSummoner] = useAtom(summonerFamily(name));
-
   const [isSelected, setIsSelected] = useAtom(selectionFamily(summoner.name));
+  const laneOption = useAtomValue(laneOptionAtom);
 
   const lockedLane = lockedSummonerLane(summoner);
 
@@ -54,13 +48,13 @@ export const SummonerRow = ({
           }
         />
       </TableCell>
-      {laneSetting !== "HIDDEN" && (
+      {laneOption !== "HIDDEN" && (
         <>
           <TableCell>
             <LanePriorityToggle
               priority={summoner.top_priority}
               locked={!!lockedLane && lockedLane !== "top"}
-              showDetails={laneSetting === "DETAILED"}
+              showDetails={laneOption === "DETAILED"}
               onChange={(top_priority) =>
                 setSummoner((s) => ({ ...s, top_priority }))
               }
@@ -70,7 +64,7 @@ export const SummonerRow = ({
             <LanePriorityToggle
               priority={summoner.jg_priority}
               locked={!!lockedLane && lockedLane !== "jg"}
-              showDetails={laneSetting === "DETAILED"}
+              showDetails={laneOption === "DETAILED"}
               onChange={(jg_priority) =>
                 setSummoner((s) => ({ ...s, jg_priority }))
               }
@@ -80,7 +74,7 @@ export const SummonerRow = ({
             <LanePriorityToggle
               priority={summoner.mid_priority}
               locked={!!lockedLane && lockedLane !== "mid"}
-              showDetails={laneSetting === "DETAILED"}
+              showDetails={laneOption === "DETAILED"}
               onChange={(mid_priority) =>
                 setSummoner((s) => ({ ...s, mid_priority }))
               }
@@ -90,7 +84,7 @@ export const SummonerRow = ({
             <LanePriorityToggle
               priority={summoner.bot_priority}
               locked={!!lockedLane && lockedLane !== "bot"}
-              showDetails={laneSetting === "DETAILED"}
+              showDetails={laneOption === "DETAILED"}
               onChange={(bot_priority) =>
                 setSummoner((s) => ({ ...s, bot_priority }))
               }
@@ -100,7 +94,7 @@ export const SummonerRow = ({
             <LanePriorityToggle
               priority={summoner.sup_priority}
               locked={!!lockedLane && lockedLane !== "sup"}
-              showDetails={laneSetting === "DETAILED"}
+              showDetails={laneOption === "DETAILED"}
               onChange={(sup_priority) =>
                 setSummoner((s) => ({ ...s, sup_priority }))
               }
