@@ -11,7 +11,7 @@ export const calcTeamMemberPoint = (
     const summoner = summoners.get(name);
     if (summoner !== undefined) {
       if (summoner.fixed_team !== undefined && summoner.fixed_team !== team) {
-        point -= 1000;
+        point -= 100000;
       }
     }
   });

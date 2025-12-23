@@ -12,13 +12,18 @@ import {
 import { SingleSlider } from "@/components/ui/slider";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { debugModeAtom } from "@/stores/debug-mode";
-import { groupOptionAtom, parameterOptionAtom } from "../stores/group-option";
+import {
+  groupOptionAtom,
+  parameterOptionAtom,
+  topPercentageOptionAtom,
+} from "../stores/group-option";
 import { selectionAtom } from "../stores/selection";
 import { summonersAtom } from "../stores/summoner";
 import type { ParameterOption } from "../types/group-option";
 import { GroupTable } from "./components/GroupTable";
 import type { Grouper } from "./types/group";
 import { createGroup, type Group } from "./types/group";
+import { groupByAverage } from "./utils/grouper/average";
 import { groupRandomly } from "./utils/grouper/randomly";
 
 export const GroupDialog = ({
@@ -39,7 +44,7 @@ export const GroupDialog = ({
     .toArray();
 
   const [parameterOption, setParameterOption] = useAtom(parameterOptionAtom);
-  const [topPercentage, setTopPercentage] = useState(25);
+  const [topPercentage, setTopPercentage] = useAtom(topPercentageOptionAtom);
 
   const [group, setGroup] = useState<Group>(createGroup());
   useEffect(() => {
@@ -71,7 +76,7 @@ export const GroupDialog = ({
 
         <div>
           <div className="mb-4 flex gap-4">
-            <Button disabled={isGrouping} onClick={handleGroup(groupRandomly)}>
+            <Button disabled={isGrouping} onClick={handleGroup(groupByAverage)}>
               {isGrouping ? (
                 <LoaderCircleIcon className="animate-spin" />
               ) : (

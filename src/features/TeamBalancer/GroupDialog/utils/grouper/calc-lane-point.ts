@@ -15,11 +15,18 @@ export const calcLanePoint = (
       if (summoner !== undefined) {
         const locked = lockedSummonerLane(summoner);
         if (locked !== undefined && locked !== lane) {
-          point -= 1000;
+          point -= 100000;
         }
 
         if (summoner[`${lane}_priority`] === "NEVER") {
-          point -= 1000;
+          point -= 100000;
+        }
+
+        if (summoner[`${lane}_priority`] === "HIGH") {
+          point += 10;
+        }
+        if (summoner[`${lane}_priority`] === "MEDIUM") {
+          point += 5;
         }
       }
     });
