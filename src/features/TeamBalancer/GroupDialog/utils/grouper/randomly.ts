@@ -7,7 +7,7 @@ import { calcTeamMemberPoint } from "./calc-team-member-point";
 import { combinations } from "./combinations";
 import { permutations } from "./permutations";
 
-export const groupRandomly: Grouper = (names, summoners) => {
+export const groupRandomly: Grouper = (names, summoners, option) => {
   const goodNames = shuffled(combinations(names, 5))
     .map<[string[], string[]]>((blue) => [
       blue,

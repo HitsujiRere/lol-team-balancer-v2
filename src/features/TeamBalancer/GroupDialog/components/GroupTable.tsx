@@ -11,7 +11,7 @@ import { useAtomValue } from "jotai";
 import { type Dispatch, type SetStateAction, useId, useState } from "react";
 import { createPortal } from "react-dom";
 import { Flipper } from "react-flip-toolkit";
-import { laneOptionAtom } from "../../stores/options";
+import { laneOptionAtom } from "../../stores/group-option";
 import { LANE_NAMES, type LaneName } from "../../types/lane-name";
 import { TEAM_NAMES, type TeamName } from "../../types/team-name";
 import type { Group } from "../types/group";

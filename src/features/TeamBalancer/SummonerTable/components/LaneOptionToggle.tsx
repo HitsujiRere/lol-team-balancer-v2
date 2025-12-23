@@ -5,8 +5,8 @@ import {
   ListChevronsUpDownIcon,
 } from "lucide-react";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import { laneOptionAtom } from "../../stores/options";
-import type { LaneOption } from "../../types/option";
+import { laneOptionAtom } from "../../stores/group-option";
+import type { LaneOption } from "../../types/group-option";
 
 export const LaneOptionToggle = () => {
   const [laneOption, setLaneOption] = useAtom(laneOptionAtom);

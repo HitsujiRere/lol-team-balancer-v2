@@ -5,7 +5,7 @@ import { RankSelect } from "@/components/RankSelect";
 import { SummonerAvatar } from "@/components/SummonerAvatar";
 import { Checkbox } from "@/components/ui/checkbox";
 import { TableCell, TableRow } from "@/components/ui/table";
-import { laneOptionAtom } from "../../stores/options";
+import { laneOptionAtom } from "../../stores/group-option";
 import { selectionFamily } from "../../stores/selection";
 import { summonerFamily } from "../../stores/summoner";
 import { lockedSummonerLane } from "../../types/summoner";

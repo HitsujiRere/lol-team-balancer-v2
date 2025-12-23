@@ -8,7 +8,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { laneOptionAtom } from "../../stores/options";
+import { laneOptionAtom } from "../../stores/group-option";
 import { selectionAtom } from "../../stores/selection";
 import { HeaderOpggLink } from "./HeaderOpggLink";
 

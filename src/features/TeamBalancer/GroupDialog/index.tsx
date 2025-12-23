@@ -12,6 +12,7 @@ import {
 import { SingleSlider } from "@/components/ui/slider";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { debugModeAtom } from "@/stores/debug-mode";
+import { groupOptionAtom } from "../stores/group-option";
 import { selectionAtom } from "../stores/selection";
 import { summonersAtom } from "../stores/summoner";
 import { GroupTable } from "./components/GroupTable";
@@ -28,6 +29,7 @@ export const GroupDialog = ({
   onOpenChange: (open: boolean) => void;
 }) => {
   const debugMode = useAtomValue(debugModeAtom);
+  const groupOption = useAtomValue(groupOptionAtom);
 
   const selection = useAtomValue(selectionAtom);
   const activeNames = selection
@@ -52,11 +54,11 @@ export const GroupDialog = ({
         setIsGrouping(true);
         if (activeNames.length !== 10) return;
         const summoners = get(summonersAtom);
-        const group = await grouper(activeNames, summoners);
+        const group = await grouper(activeNames, summoners, groupOption);
         setGroup(createGroup(group.unwrapOr(undefined)));
         setIsGrouping(false);
       },
-      [activeNames],
+      [groupOption, activeNames],
     ),
   );
 
