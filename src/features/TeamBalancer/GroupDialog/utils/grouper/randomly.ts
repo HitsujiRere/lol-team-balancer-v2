@@ -1,7 +1,7 @@
-import { err, okAsync, ResultAsync } from "neverthrow";
+import { err, errAsync, ok, okAsync, type Result } from "neverthrow";
 import { choice } from "@/utils/choice";
 import { shuffled } from "@/utils/shuffled";
-import type { Grouper } from "../../types/group";
+import type { Group, Grouper } from "../../types/group";
 import { createTeamFromArray } from "../../types/team";
 import { calcLanePoint } from "./calc-lane-point";
 import { calcTeamMemberPoint } from "./calc-team-member-point";
@@ -32,7 +32,7 @@ export const groupRandomly: Grouper = (names, summoners, option) => {
   }
 
   // レーン分け
-  const groupPromises = goodNames.map(async ([blue, red]) => {
+  const teamGrouper = (blue: string[], red: string[]): Result<Group, void> => {
     const blueTeam = shuffled(permutations(blue))
       .map((blue) => {
         const team = createTeamFromArray(blue);
@@ -50,20 +50,16 @@ export const groupRandomly: Grouper = (names, summoners, option) => {
       })
       .find((team) => team !== undefined);
     if (blueTeam && redTeam) {
-      return {
-        blue: blueTeam,
-        red: redTeam,
-      };
+      return ok({ blue: blueTeam, red: redTeam });
     }
-    return undefined;
-  });
+    return err();
+  };
 
-  const goodGroup = ResultAsync.fromSafePromise(
-    Promise.all(groupPromises),
-  ).andThen((x) => {
-    const group = x.find((res) => res !== undefined);
-    return group ? okAsync(group) : err();
-  });
-
-  return goodGroup;
+  for (const [blue, red] of shuffled(goodNames)) {
+    const group = teamGrouper(blue, red);
+    if (group.isOk()) {
+      return okAsync(group.value);
+    }
+  }
+  return errAsync();
 };
