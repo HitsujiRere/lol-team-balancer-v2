@@ -21,7 +21,7 @@ export const LaneCard = ({
   const diff = blueSummoner[parameterOption] - redSummoner[parameterOption];
 
   if (laneOption === "DISABLED") {
-    return <div></div>;
+    return <div className="col-start-2" />;
   }
 
   return (
