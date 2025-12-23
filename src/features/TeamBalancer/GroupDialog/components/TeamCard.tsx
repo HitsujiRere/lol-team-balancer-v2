@@ -1,14 +1,17 @@
 import { useAtomValue } from "jotai/react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { formatRank, pointToRank } from "@/types/rank";
 import { toOpggMultisearchLink } from "@/types/riot-id";
+import { parameterOptionAtom } from "../../stores/group-option";
 import { summonersAtom } from "../../stores/summoner";
 import { LANE_NAMES } from "../../types/lane-name";
 import type { TeamName } from "../../types/team-name";
 import type { Team } from "../types/team";
-import { sumLevel } from "../utils/sum-level";
 
 export const TeamCard = ({ name, team }: { name: TeamName; team: Team }) => {
+  const parameterOption = useAtomValue(parameterOptionAtom);
+
   // TODO: 関係のないサモナーの更新を無視するように
   const summoners = useAtomValue(summonersAtom)
     .values()
@@ -26,7 +29,10 @@ ${toOpggMultisearchLink(riotIds)}`,
     );
   };
 
-  const average = sumLevel(summoners) / 5;
+  const average =
+    summoners
+      .map((summoner) => summoner[parameterOption])
+      .reduce((sum, cur) => sum + cur, 0) / 5;
 
   return (
     <div
@@ -35,14 +41,19 @@ ${toOpggMultisearchLink(riotIds)}`,
         "col-start-3 border-red-400 bg-red-200": name === "red",
       })}
     >
-      <div className="grid grid-cols-2 place-items-center px-12">
-        <p className="text-lg">{name === "blue" ? "Blue" : "Red"}</p>
-        <p>平均: Lv.{average}</p>
-      </div>
-      <div className="flex justify-center">
-        <Button variant="secondary" onClick={handleCopy}>
-          コピー
-        </Button>
+      <div className="grid grid-cols-[1fr_2fr] place-items-center">
+        <div className="text-lg">{name === "blue" ? "Blue" : "Red"}</div>
+        <div className="flex flex-col items-center gap-2">
+          <div>
+            平均:
+            {parameterOption === "level"
+              ? `Lv.${average}`
+              : `${average}pt (${formatRank(pointToRank(average))})`}
+          </div>
+          <Button variant="secondary" onClick={handleCopy}>
+            コピー
+          </Button>
+        </div>
       </div>
     </div>
   );

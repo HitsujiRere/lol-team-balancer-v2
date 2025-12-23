@@ -7,11 +7,9 @@ import {
   pointerWithin,
 } from "@dnd-kit/core";
 import { SortableContext } from "@dnd-kit/sortable";
-import { useAtomValue } from "jotai";
 import { type Dispatch, type SetStateAction, useId, useState } from "react";
 import { createPortal } from "react-dom";
 import { Flipper } from "react-flip-toolkit";
-import { laneOptionAtom } from "../../stores/group-option";
 import { LANE_NAMES, type LaneName } from "../../types/lane-name";
 import { TEAM_NAMES, type TeamName } from "../../types/team-name";
 import type { Group } from "../types/group";
@@ -28,8 +26,6 @@ export const GroupTable = ({
   group: Group;
   setGroup: Dispatch<SetStateAction<Group>>;
 }) => {
-  const laneOption = useAtomValue(laneOptionAtom);
-
   const groupEntries = () =>
     TEAM_NAMES.flatMap((team) =>
       LANE_NAMES.map<[TeamName, LaneName, string]>((lane) => [
@@ -86,15 +82,14 @@ export const GroupTable = ({
           <GroupCard group={group} />
           <TeamCard name="red" team={group.red} />
 
-          {laneOption !== "DISABLED" &&
-            LANE_NAMES.map((lane) => (
-              <LaneCard
-                key={lane}
-                lane={lane}
-                blueName={group.blue[lane]}
-                redName={group.red[lane]}
-              />
-            ))}
+          {LANE_NAMES.map((lane) => (
+            <LaneCard
+              key={lane}
+              lane={lane}
+              blueName={group.blue[lane]}
+              redName={group.red[lane]}
+            />
+          ))}
 
           {groupEntries().map(([team, lane, name]) => (
             <SummonerCard

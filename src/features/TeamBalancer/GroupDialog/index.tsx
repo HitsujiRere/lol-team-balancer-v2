@@ -1,4 +1,4 @@
-import { useAtomValue } from "jotai/react";
+import { useAtom, useAtomValue } from "jotai/react";
 import { useAtomCallback } from "jotai/utils";
 import { DicesIcon, LoaderCircleIcon } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
@@ -12,13 +12,13 @@ import {
 import { SingleSlider } from "@/components/ui/slider";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { debugModeAtom } from "@/stores/debug-mode";
-import { groupOptionAtom } from "../stores/group-option";
+import { groupOptionAtom, parameterOptionAtom } from "../stores/group-option";
 import { selectionAtom } from "../stores/selection";
 import { summonersAtom } from "../stores/summoner";
+import type { ParameterOption } from "../types/group-option";
 import { GroupTable } from "./components/GroupTable";
 import type { Grouper } from "./types/group";
 import { createGroup, type Group } from "./types/group";
-import type { Parameter } from "./types/parameter";
 import { groupRandomly } from "./utils/grouper/randomly";
 
 export const GroupDialog = ({
@@ -38,6 +38,9 @@ export const GroupDialog = ({
     .map(([name]) => name)
     .toArray();
 
+  const [parameterOption, setParameterOption] = useAtom(parameterOptionAtom);
+  const [topPercentage, setTopPercentage] = useState(25);
+
   const [group, setGroup] = useState<Group>(createGroup());
   useEffect(() => {
     setGroup(createGroup());
@@ -45,9 +48,6 @@ export const GroupDialog = ({
   }, [activeNames]);
 
   const [isGrouping, setIsGrouping] = useState(false);
-  const [parameter, setParameter] = useState<Parameter>("rank");
-  const [topPercentage, setTopPercentage] = useState(25);
-
   const handleGroup = useAtomCallback(
     useCallback(
       (get, _set, grouper: Grouper) => async () => {
@@ -83,17 +83,17 @@ export const GroupDialog = ({
             <ToggleGroup
               type="single"
               variant="outline"
-              value={parameter}
+              value={parameterOption}
               onValueChange={(param) => {
                 if (param !== "") {
-                  setParameter(param as Parameter);
+                  setParameterOption(param as ParameterOption);
                 }
               }}
             >
-              <ToggleGroupItem value={"level" satisfies Parameter}>
+              <ToggleGroupItem value={"level" satisfies ParameterOption}>
                 レベル
               </ToggleGroupItem>
-              <ToggleGroupItem value={"rank" satisfies Parameter}>
+              <ToggleGroupItem value={"rank_point" satisfies ParameterOption}>
                 ランク
               </ToggleGroupItem>
             </ToggleGroup>
