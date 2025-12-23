@@ -1,9 +1,5 @@
 import { useAtom } from "jotai";
-import {
-  EyeClosedIcon,
-  ListChevronsDownUpIcon,
-  ListChevronsUpDownIcon,
-} from "lucide-react";
+import { EyeClosedIcon, EyeIcon, ViewIcon } from "lucide-react";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { laneOptionAtom } from "../../stores/group-option";
 import type { LaneOption } from "../../types/group-option";
@@ -24,16 +20,16 @@ export const LaneOptionToggle = () => {
       value={laneOption}
       onValueChange={handleChange}
     >
-      <ToggleGroupItem value={"HIDDEN" satisfies LaneOption}>
+      <ToggleGroupItem value={"DISABLED" satisfies LaneOption}>
         <EyeClosedIcon />
-        レーン非表示
+        レーン非考慮
       </ToggleGroupItem>
       <ToggleGroupItem value={"SIMPLE" satisfies LaneOption}>
-        <ListChevronsDownUpIcon />
-        シンプル
+        <EyeIcon />
+        レーンシンプル
       </ToggleGroupItem>
       <ToggleGroupItem value={"DETAILED" satisfies LaneOption}>
-        <ListChevronsUpDownIcon />
+        <ViewIcon />
         詳細
       </ToggleGroupItem>
     </ToggleGroup>

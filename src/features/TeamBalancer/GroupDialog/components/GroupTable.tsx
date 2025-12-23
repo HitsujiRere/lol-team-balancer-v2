@@ -86,7 +86,7 @@ export const GroupTable = ({
           <GroupCard group={group} />
           <TeamCard name="red" team={group.red} />
 
-          {laneOption !== "HIDDEN" &&
+          {laneOption !== "DISABLED" &&
             LANE_NAMES.map((lane) => (
               <LaneCard
                 key={lane}

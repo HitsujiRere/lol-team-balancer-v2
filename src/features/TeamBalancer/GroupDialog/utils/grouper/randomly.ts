@@ -1,4 +1,5 @@
-import { err, ok, ResultAsync } from "neverthrow";
+import { err, okAsync, ResultAsync } from "neverthrow";
+import { choice } from "@/utils/choice";
 import { shuffled } from "@/utils/shuffled";
 import type { Grouper } from "../../types/group";
 import { createTeamFromArray } from "../../types/team";
@@ -8,6 +9,7 @@ import { combinations } from "./combinations";
 import { permutations } from "./permutations";
 
 export const groupRandomly: Grouper = (names, summoners, option) => {
+  // チーム分け
   const goodNames = shuffled(combinations(names, 5))
     .map<[string[], string[]]>((blue) => [
       blue,
@@ -20,6 +22,16 @@ export const groupRandomly: Grouper = (names, summoners, option) => {
       return bluePoint >= 0 && redPoint >= 0;
     });
 
+  // 非考慮のときレーン分けしない
+  if (option.lane === "DISABLED") {
+    const [blue, red] = choice(goodNames);
+    return okAsync({
+      blue: createTeamFromArray(blue),
+      red: createTeamFromArray(red),
+    });
+  }
+
+  // レーン分け
   const groupPromises = goodNames.map(async ([blue, red]) => {
     const blueTeam = shuffled(permutations(blue))
       .map((blue) => {
@@ -50,7 +62,7 @@ export const groupRandomly: Grouper = (names, summoners, option) => {
     Promise.all(groupPromises),
   ).andThen((x) => {
     const group = x.find((res) => res !== undefined);
-    return group ? ok(group) : err();
+    return group ? okAsync(group) : err();
   });
 
   return goodGroup;

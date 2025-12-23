@@ -48,7 +48,7 @@ export const SummonerRow = ({ name }: { name: string }) => {
           }
         />
       </TableCell>
-      {laneOption !== "HIDDEN" && (
+      {laneOption !== "DISABLED" && (
         <>
           <TableCell>
             <LanePriorityToggle

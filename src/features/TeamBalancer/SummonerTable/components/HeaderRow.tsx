@@ -49,7 +49,7 @@ export const HeaderRow = () => {
       </TableHead>
       <TableHead>レベル</TableHead>
       <TableHead>ランク/ポイント</TableHead>
-      {laneOption !== "HIDDEN" && (
+      {laneOption !== "DISABLED" && (
         <>
           <TableHead>TOP</TableHead>
           <TableHead>JG</TableHead>
