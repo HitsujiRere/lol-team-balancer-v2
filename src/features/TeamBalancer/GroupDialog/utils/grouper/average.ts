@@ -57,6 +57,7 @@ export const groupByAverage: Grouper = (names, summoners, option) => {
   }
 
   // レーン分け
+  // TODO: 軽量化
   const bestGroup = new ResultAsync(
     (async () => {
       // 処理が重いため一度描画する
@@ -76,7 +77,8 @@ export const groupByAverage: Grouper = (names, summoners, option) => {
       // const groups: Group[] = [];
       const groupHeap = new Heap<{ group: Group; point: number }>(compare);
       groupHeap.setLimit(limit);
-      for (const [blue, red] of goodNames) {
+      // 軽量化のため仮でsliceする
+      for (const [blue, red] of goodNames.slice(0, 20)) {
         const blueTeams = permutations(blue)
           .map((blue) => {
             const team = createTeamFromArray(blue);

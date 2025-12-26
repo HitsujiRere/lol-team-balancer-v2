@@ -3,7 +3,7 @@ import { focusAtom } from "jotai-optics";
 import type { GroupOption } from "../types/group-option";
 
 export const groupOptionAtom = atom<GroupOption>({
-  lane: "SIMPLE",
+  lane: "DISABLED",
   parameter: "rank_point",
   top_percentage: 10,
 } satisfies GroupOption);
