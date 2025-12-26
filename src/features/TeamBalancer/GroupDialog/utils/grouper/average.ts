@@ -1,3 +1,4 @@
+import Heap from "heap-js";
 import { errAsync, okAsync, ResultAsync } from "neverthrow";
 import { choice } from "@/utils/choice";
 import { shuffled } from "@/utils/shuffled";
@@ -46,8 +47,9 @@ export const groupByAverage: Grouper = (names, summoners, option) => {
       return errAsync();
     }
     const [blue, red] = choice(
-      goodNames.slice(0, (goodNames.length * option.top_percentage) / 100),
+      goodNames.slice(0, (goodNames.length * option.top_percentage) / 100 + 1),
     );
+    console.log(blue, red);
     return okAsync({
       blue: createTeamFromArray(blue),
       red: createTeamFromArray(red),
@@ -55,55 +57,76 @@ export const groupByAverage: Grouper = (names, summoners, option) => {
   }
 
   // レーン分け
-  const teamGrouper = (blue: string[], red: string[]): Group[] => {
-    const blueTeams = permutations(blue)
-      .map((blue) => {
-        const team = createTeamFromArray(blue);
-        if (team === undefined) return undefined;
-        const point = calcLanePoint({ blue: team }, summoners);
-        return point >= 0 ? team : undefined;
-      })
-      .filter((team) => team !== undefined);
-    const redTeams = permutations(red)
-      .map((red) => {
-        const team = createTeamFromArray(red);
-        if (team === undefined) return undefined;
-        const point = calcLanePoint({ red: team }, summoners);
-        return point >= 0 ? team : undefined;
-      })
-      .filter((team) => team !== undefined);
-    return blueTeams.flatMap((blue) =>
-      redTeams.map((red) => ({ blue: blue, red: red })),
-    );
-  };
-
   const bestGroup = new ResultAsync(
     (async () => {
-      // ブロッキングしないため
+      // 処理が重いため一度描画する
       await new Promise((r) => setTimeout(r, 0));
-      const groups: Group[] = [];
+
+      // 保持する件数
+      // 3628800 = 10!; all group permutations
+      const limit = Math.min(
+        Math.floor((3_628_800 * option.top_percentage) / 100),
+        10_000,
+      );
+      let allGroup = 0;
+
+      const compare = (a: { point: number }, b: { point: number }) =>
+        b.point - a.point;
+
+      // const groups: Group[] = [];
+      const groupHeap = new Heap<{ group: Group; point: number }>(compare);
+      groupHeap.setLimit(limit);
       for (const [blue, red] of goodNames) {
-        groups.push(...teamGrouper(blue, red));
-        // 3628800 = 10!; all group permutations
-        if (groups.length >= (3628800 * option.top_percentage) / 100) {
-          break;
-        }
+        const blueTeams = permutations(blue)
+          .map((blue) => {
+            const team = createTeamFromArray(blue);
+            if (team === undefined) return undefined;
+            const point = calcLanePoint({ blue: team }, summoners);
+            return point >= 0 ? team : undefined;
+          })
+          .filter((team) => team !== undefined);
+        const redTeams = permutations(red)
+          .map((red) => {
+            const team = createTeamFromArray(red);
+            if (team === undefined) return undefined;
+            const point = calcLanePoint({ red: team }, summoners);
+            return point >= 0 ? team : undefined;
+          })
+          .filter((team) => team !== undefined);
+        blueTeams.forEach((blue) => {
+          redTeams.forEach((red) => {
+            const group = { blue, red };
+            const lanePoint = calcLanePoint(group, summoners);
+            const blueParameter = calcTeamParameterPoint(
+              option.parameter,
+              blue,
+              summoners,
+            );
+            const redParameter = calcTeamParameterPoint(
+              option.parameter,
+              red,
+              summoners,
+            );
+            groupHeap.push({
+              group,
+              point: lanePoint - Math.abs(blueParameter - redParameter),
+            });
+            allGroup += 1;
+          });
+        });
       }
-      if (groups.length === 0) {
+
+      // 最大値の修正
+      if (limit > Math.floor((allGroup * option.top_percentage) / 100)) {
+        groupHeap.setLimit(
+          Math.floor((allGroup * option.top_percentage) / 100),
+        );
+      }
+
+      if (groupHeap.size() === 0) {
         return errAsync();
       }
-      groups.sort((group1, group2) => {
-        const group1point = Math.abs(
-          calcTeamParameterPoint(option.parameter, group1.blue, summoners) -
-            calcTeamParameterPoint(option.parameter, group1.red, summoners),
-        );
-        const group2point = Math.abs(
-          calcTeamParameterPoint(option.parameter, group2.blue, summoners) -
-            calcTeamParameterPoint(option.parameter, group2.red, summoners),
-        );
-        return group1point - group2point;
-      });
-      return okAsync(choice(groups));
+      return okAsync(choice(groupHeap.toArray()).group);
     })(),
   );
   return bestGroup;

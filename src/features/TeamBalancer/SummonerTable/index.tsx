@@ -10,6 +10,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { roomAtom } from "../stores/room";
+import { DebugButtons } from "./components/DebugButtonts";
 import { HeaderRow } from "./components/HeaderRow";
 import { LaneOptionToggle } from "./components/LaneOptionToggle";
 import { SummonerRow } from "./components/SummonerRow";
@@ -32,6 +33,7 @@ export const SummonerTable = ({ onGrouping }: { onGrouping: () => void }) => {
           サモナー検索
         </Button>
         <LaneOptionToggle />
+        <DebugButtons />
       </div>
       <Table>
         <TableHeader>
@@ -48,9 +50,6 @@ export const SummonerTable = ({ onGrouping }: { onGrouping: () => void }) => {
             roomNames.map((name) => <SummonerRow key={name} name={name} />)
           )}
         </TableBody>
-        {/* <TableFooter>
-          <FooterRow />
-        </TableFooter> */}
       </Table>
     </>
   );

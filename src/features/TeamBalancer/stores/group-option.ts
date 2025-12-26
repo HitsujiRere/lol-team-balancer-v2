@@ -5,7 +5,7 @@ import type { GroupOption } from "../types/group-option";
 export const groupOptionAtom = atom<GroupOption>({
   lane: "SIMPLE",
   parameter: "rank_point",
-  top_percentage: 20,
+  top_percentage: 10,
 } satisfies GroupOption);
 
 export const laneOptionAtom = focusAtom(groupOptionAtom, (optic) =>

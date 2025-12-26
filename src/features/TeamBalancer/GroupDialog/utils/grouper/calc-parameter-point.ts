@@ -12,7 +12,7 @@ export const calcMemberParameterPoint = (
   names.forEach((name) => {
     const summoner = summoners.get(name);
     if (summoner !== undefined) {
-      point += summoner[parameter];
+      point += parameterPoint(parameter, summoner[parameter]);
     }
   });
   return point;
@@ -27,8 +27,15 @@ export const calcTeamParameterPoint = (
   LANE_NAMES.forEach((lane) => {
     const summoner = summoners.get(team[lane]);
     if (summoner !== undefined) {
-      point += summoner[parameter];
+      point += parameterPoint(parameter, summoner[parameter]);
     }
   });
   return point;
+};
+
+const parameterPoint = (parameter: ParameterOption, value: number) => {
+  if (parameter === "level") {
+    return Math.log2(value);
+  }
+  return value;
 };

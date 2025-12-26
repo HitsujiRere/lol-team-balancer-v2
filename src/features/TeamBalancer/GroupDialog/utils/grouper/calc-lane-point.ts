@@ -23,10 +23,10 @@ export const calcLanePoint = (
         }
 
         if (summoner[`${lane}_priority`] === "HIGH") {
-          point += 10;
+          point += 4;
         }
         if (summoner[`${lane}_priority`] === "MEDIUM") {
-          point += 5;
+          point += 2;
         }
       }
     });

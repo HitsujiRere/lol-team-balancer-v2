@@ -108,7 +108,7 @@ export const GroupDialog = ({
               <SingleSlider
                 step={5}
                 min={5}
-                max={100}
+                max={30}
                 className="w-32"
                 value={topPercentage}
                 onValueChange={(value) => setTopPercentage(value)}
